@@ -86,12 +86,21 @@ button, input, select, textarea {
     font-size: 0.95rem;
     cursor: pointer;
 }
+
+/* Structural Sidebar Navigation Layout changes */
 .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+.nav-links {
     display: grid;
     gap: 0.5rem;
 }
 .nav-item {
     display: flex;
+    width: 100%;
     align-items: center;
     gap: 0.85rem;
     border-radius: 0.95rem;
@@ -102,11 +111,27 @@ button, input, select, textarea {
     transition: background 0.2s ease, color 0.2s ease;
     text-align: left;
     text-decoration: none;
+    cursor: pointer;
 }
 .nav-item:hover, .nav-item.active {
     background: rgba(79, 70, 229, 0.18);
     color: #ffffff;
 }
+
+/* Sign Out Button Styles */
+.sidebar-footer {
+    border-top: 1px solid #1f293d;
+    padding-top: 1rem;
+    margin-top: auto;
+}
+.signout-btn {
+    color: #f87171;
+}
+.signout-btn:hover {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
 .main-content {
     padding: 1.5rem;
     min-height: 100vh;
@@ -121,7 +146,35 @@ button, input, select, textarea {
     margin: 0 auto;
 }
 
-/* Workspace Panels and Search */
+/* CONSULTANT STYLE COPIED HEADER BLOCK */
+.consultant-welcome {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1.15rem 1.5rem;
+    background: #111625;
+    border: 1px solid #1f293d;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+}
+.consultant-icon {
+    font-size: 1.1rem;
+    color: #818cf8;
+}
+.consultant-text {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #d1d5db;
+}
+.consultant-text b {
+    color: #ffffff;
+}
+.consultant-text .divider {
+    margin: 0 0.5rem;
+    color: #4b5563;
+}
+
+/* WORKSPACE PANELS AND SEARCH LOGIC */
 .search-section {
     margin-bottom: 2rem;
     padding: 1.5rem;
@@ -155,6 +208,10 @@ button, input, select, textarea {
     color: #ffffff;
     border: none;
     font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
 }
 .search-btn:hover { background: #4338ca; }
 .reset-btn, .filter-reset-btn {
@@ -164,6 +221,7 @@ button, input, select, textarea {
     color: #9ca3af;
     border: 1px solid #1f293d;
     font-weight: 500;
+    cursor: pointer;
 }
 .reset-btn:hover, .filter-reset-btn:hover { color: #d1d5db; border-color: #374151; }
 
@@ -182,6 +240,7 @@ button, input, select, textarea {
     margin-bottom: 1rem;
 }
 .list-title { margin: 0; font-size: 1rem; color: #ffffff; font-weight: 600; }
+.flex-actions-row { display: flex; gap: 0.5rem; }
 
 /* Control Tables styling */
 .table-scroll { overflow-x: auto; }
@@ -204,7 +263,12 @@ button, input, select, textarea {
     font-weight: 600;
     font-size: 0.75rem;
 }
+.blueprint-table thead th i {
+    font-size: 0.7rem;
+    margin-left: 0.25rem;
+}
 .blueprint-table tbody tr:hover { background: rgba(79, 70, 229, 0.04); }
+.project-title-cell { font-weight: 600; color: #ffffff; }
 .action-col { text-align: right; white-space: nowrap; }
 .action-link { text-decoration: none; margin-left: 0.85rem; font-size: 0.825rem; }
 .action-link.edit-link { color: #60a5fa; }
@@ -226,11 +290,22 @@ button, input, select, textarea {
 
 /* Global Workspace Modals CSS Framework */
 .modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 60; }
+.modal[hidden] { display: none !important; }
 .modal-backdrop { position: absolute; inset: 0; background: rgba(3, 7, 18, 0.7); }
 .modal-panel { position: relative; width: min(920px, 95%); background: #0b1221; border: 1px solid #1f293d; padding: 1.25rem; border-radius: 0.75rem; box-shadow: 0 20px 50px rgba(2, 6, 23, 0.6); z-index: 70; color: #d1d5db; }
+.max-width-filter { max-width: 500px; }
+.max-width-upload { max-width: 550px; }
 .modal-close { position: absolute; right: 0.75rem; top: 0.5rem; background: transparent; border: none; color: #9ca3af; font-size: 1.25rem; cursor: pointer; }
-.modal-section { margin-bottom: 0.75rem; }
-.modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem; }
+.modal-header-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; color: #ffffff; display: flex; align-items: center; }
+.modal-header-title i { margin-right: 0.5rem; color: #818cf8; }
+.modal-section { margin-bottom: 1rem; }
+.modal-label { display: block; font-size: 0.875rem; font-weight: 500; color: #94a3b8; margin-bottom: 0.25rem; }
+.modal-input, .modal-select { width: 100%; padding: 0.65rem; border-radius: 0.5rem; background: #0f1724; border: 1px solid #1f293d; color: #d1d5db; }
+.modal-range-group { display: flex; gap: 0.5rem; }
+.modal-range-input { width: 50%; padding: 0.5rem; border-radius: 0.5rem; background: #0f1724; border: 1px solid #1f293d; color: #d1d5db; }
+.margin-bottom-large { margin-bottom: 1.5rem; }
+.border-top-divider { border-top: 1px solid #1f293d; padding-top: 1rem; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem; padding-top: 1rem; }
 
 .action-btn {
     padding: 0.6rem 0.9rem;
@@ -241,16 +316,54 @@ button, input, select, textarea {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    cursor: pointer;
 }
 .action-btn:hover { border-color: rgba(79, 70, 229, 0.3); background: rgba(79, 70, 229, 0.06); }
 .action-btn.primary { background: #4f46e5; color: #fff; border: none; }
 .action-btn.primary:hover { background: #4338ca; }
-.filter-apply-btn { padding: 0.65rem 1.5rem; border-radius: 0.5rem; background: #4f46e5; color: #ffffff; border: none; font-weight: 500; }
+.filter-apply-btn { padding: 0.65rem 1.5rem; border-radius: 0.5rem; background: #4f46e5; color: #ffffff; border: none; font-weight: 500; cursor: pointer; }
+.filter-apply-btn:hover { background: #4338ca; }
 
 /* Interactive File Drop Area */
 .file-drop { display: block; border: 1px dashed rgba(255, 255, 255, 0.08); border-radius: 0.5rem; padding: 1.25rem; cursor: pointer; transition: all 0.2s ease-in-out; }
 .file-drop:hover { border-color: #4f46e5; background: rgba(79, 70, 229, 0.02); }
-.file-drop-inner { text-align: center; color: #9ca3af; font-size: 0.85rem; }
+.file-drop-inner { text-align: center; color: #9ca3af; font-size: 0.85rem; padding: 1rem 0; }
+.file-drop-inner i { font-size: 2rem; margin-bottom: 0.5rem; color: rgba(129, 140, 248, 0.6); }
+.file-drop-subtext { font-size: 0.75rem; color: #64748b; }
+
+/* Dynamic uploaded files container */
+.file-list-container {
+    margin-top: 0.5rem;
+}
+.dynamic-file-row {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.02);
+    font-size: 0.75rem;
+    color: #d1d5db;
+    margin-bottom: 0.25rem;
+    border: 1px solid #1f293d;
+}
+.file-meta-info i {
+    margin-right: 0.5rem;
+    color: #818cf8;
+}
+.file-size-label {
+    color: #9ca3af;
+}
+.file-remove-action {
+    color: #f87171;
+    background: transparent;
+    border: none;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+.file-remove-action:hover {
+    color: #fca5a5;
+}
 
 /* Custom Modal scrollbar details */
 .custom-scrollbar::-webkit-scrollbar { width: 5px; }

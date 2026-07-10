@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="has-theme-dark">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Blueprints - WEBCON</title>
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<link rel="stylesheet" href="projects.css">
 	<link rel="stylesheet" href="blueprints.css">
 </head>
 <body>
@@ -26,67 +25,86 @@
 			</div>
 
 			<nav class="sidebar-nav">
-				<a class="nav-item" href="projects.html"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
-				<a class="nav-item active" href="blueprints.html"><i class="fa-solid fa-map"></i><span>Blueprints</span></a>
-				<a class="nav-item" href="revisions.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Revisions</span></a>
-				<a class="nav-item" href="consultants.html"><i class="fa-solid fa-users"></i><span>Consultants</span></a>
+				<div class="nav-links">
+					<a class="nav-item" href="projects.html"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
+					<a class="nav-item active" href="blueprints.html"><i class="fa-solid fa-map"></i><span>Blueprints</span></a>
+					<a class="nav-item" href="revisions.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Revisions</span></a>
+					<a class="nav-item" href="consultants.html"><i class="fa-solid fa-users"></i><span>Consultants</span></a>
+				</div>
+				
+				<!-- Aligned Navigation Sign Out Button Footer Panel -->
+				<div class="sidebar-footer">
+					<button class="nav-item signout-btn" onclick="handleSignOut()">
+						<i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span>
+					</button>
+				</div>
 			</nav>
 		</aside>
 
 		<main class="main-content">
 			<div class="bp-container">
 
+				<!-- Top Action Header matched to Projects Layout Layout View -->
+				<section class="panel consultant-welcome">
+					<span class="consultant-icon"><i class="fa-solid fa-hand-peace"></i></span>
+					<p class="consultant-text">
+						Welcome back, <b>Engr. Zoey Pangan</b>
+						<span class="divider">|</span>
+						Role: Technical Consultant (Mechanical)
+					</p>
+				</section>
+
 				<div id="addBlueprintModal" class="modal" aria-hidden="true" hidden>
 					<div class="modal-backdrop" id="addBlueprintBackdrop"></div>
 					<div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="addBlueprintTitle">
 						<button class="modal-close" id="addBlueprintClose" aria-label="Close">&times;</button>
-						<h2 id="addBlueprintTitle">Add Blueprint</h2>
+						<h2 id="addBlueprintTitle" class="modal-header-title"><i class="fa-solid fa-map"></i>Add Blueprint</h2>
 						<div class="modal-section">
-							<label for="blueprintProject">Project</label>
-							<select id="blueprintProject" style="width:100%; padding:0.5rem; border-radius:0.35rem; background:#0f1724; border:1px solid rgba(255,255,255,0.04); color:#d1d5db;" required>
+							<label for="blueprintProject" class="modal-label">Project</label>
+							<select id="blueprintProject" class="modal-select" required>
 								<option value="">Select Project</option>
 								<option value="Quiet Times by the Riverbank">Quiet Times by the Riverbank</option>
 								<option value="Court of Justice's Artistry">Court of Justice's Artistry</option>
 							</select>
 						</div>
 						<div class="modal-section">
-							<label for="blueprintCategory">Category</label>
-							<select id="blueprintCategory" style="width:100%; padding:0.5rem; border-radius:0.35rem; background:#0f1724; border:1px solid rgba(255,255,255,0.04); color:#d1d5db;" required>
+							<label for="blueprintCategory" class="modal-label">Category</label>
+							<select id="blueprintCategory" class="modal-select" required>
 								<option value="">Select Category</option>
 								<option value="General & Information Sheets">General & Information Sheets</option>
 								<option value="Architectural Plans">Architectural Plans (A-Series)</option>
 								<option value="Landscape">Landscape (Trees, exterior pavements, retaining walls)</option>
 							</select>
 						</div>
-						<div class="modal-section">
-							<label for="blueprintName">Blueprint Name</label>
-							<input type="text" id="blueprintName" placeholder="" style="width:100%; padding:0.5rem; border-radius:0.35rem; background:#0f1724; border:1px solid rgba(255,255,255,0.04); color:#d1d5db;" required />
+						<div class="modal-section margin-bottom-large">
+							<label for="blueprintName" class="modal-label">Blueprint Name</label>
+							<input type="text" id="blueprintName" class="modal-input" required />
 						</div>
-						<div class="modal-actions">
-							<button id="addBlueprintCancel" class="action-btn">Cancel</button>
+						<div class="modal-actions border-top-divider">
+							<button id="addBlueprintCancel" class="filter-reset-btn">Cancel</button>
 							<button id="addBlueprintSubmit" class="action-btn primary">Add Blueprint</button>
 						</div>
 					</div>
 				</div>
 
 				<section class="search-section">
-					<h3 class="search-title">Search</h3>
+					<h3 class="search-title">Search Blueprints</h3>
 					<div class="search-row">
 						<input type="text" id="searchInput" class="search-input" placeholder="Search Blueprint, Project, Category...">
-						<button class="search-btn">Search</button>
+						<button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
 						<button class="reset-btn">Reset</button>
 					</div>
 				</section>
 
-				<section class="filter-section">
-					<h3 class="filter-title">Filter Blueprints</h3>
-					<div class="filter-row">
-						<select id="projectFilter" class="filter-select">
+				<section class="search-section">
+					<h3 class="search-title">Filter Blueprints</h3>
+					<div class="search-row">
+						<select id="projectFilter" class="search-input !w-auto">
 							<option value="">All Projects</option>
 							<option value="Quiet Times by the Riverbank">Quiet Times by the Riverbank</option>
 							<option value="Court of Justice's Artistry">Court of Justice's Artistry</option>
 						</select>
-						<select id="categoryFilter" class="filter-select">
+						<select id="categoryFilter" class="search-input !w-auto">
 							<option value="">All Categories</option>
 							<option value="Architectural Plans">Architectural Plans (A-Series)</option>
 							<option value="Landscape">Landscape (Trees, exterior pavements, retaining walls)</option>
@@ -99,12 +117,12 @@
 				<section class="blueprint-list-section">
 					<div class="list-header-row">
 						<h3 class="list-title">Blueprint List</h3>
-						<div class="flex gap-2">
+						<div class="flex-actions-row">
 							<button id="openCategoryModalBtn" class="action-btn">
 								<i class="fa-solid fa-tags"></i>
 								<span>Categories</span>
 							</button>
-							<button id="addBlueprintBtn" class="action-btn upload-projects-btn">
+							<button id="addBlueprintBtn" class="action-btn primary upload-projects-btn">
 								<i class="fa-solid fa-plus"></i>
 								<span>Add Blueprint</span>
 							</button>
@@ -114,72 +132,72 @@
 						<table class="blueprint-table">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>Project</th>
-									<th>Category</th>
-									<th>Blueprint Name</th>
+									<th>ID <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
+									<th>Project <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
+									<th>Category <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
+									<th>Blueprint Name <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
 									<th class="action-col">Action</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td>1</td>
-									<td>Quiet Times by the Riverbank</td>
+									<td class="project-title-cell">Quiet Times by the Riverbank</td>
 									<td>Architectural Plans (A-Series)</td>
 									<td>Deepwood Dweller Lones</td>
 									<td class="action-col">
-										<a href="#" class="action-link edit-link">Edit</a> 
-										<a href="#" class="action-link delete-link">Delete</a>
-										<a href="#" class="action-link download-link" data-file="Deepwood Dweller Lones"><i class="fa-solid fa-download"></i> Download</a>
-										<a href="#" class="action-link feedback-link" data-file="Deepwood Dweller Lones"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+										<a href="#" class="action-link edit-link">Edit</a> | 
+										<a href="#" class="action-link delete-link">Delete</a> | 
+										<a href="#" class="action-link edit-link" style="color:#34d399;" data-file="Deepwood Dweller Lones"><i class="fa-solid fa-download"></i> Download</a> | 
+										<a href="#" class="action-link edit-link" style="color:#fbbf24;" data-file="Deepwood Dweller Lones"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
 									</td>
 								</tr>
 								<tr>
 									<td>2</td>
-									<td>Quiet Times by the Riverbank</td>
+									<td class="project-title-cell">Quiet Times by the Riverbank</td>
 									<td>Architectural Plans (A-Series)</td>
 									<td>Fabric of the City of Wisdom</td>
 									<td class="action-col">
-										<a href="#" class="action-link edit-link">Edit</a> 
-										<a href="#" class="action-link delete-link">Delete</a>
-										<a href="#" class="action-link download-link" data-file="Fabric of the City of Wisdom"><i class="fa-solid fa-download"></i> Download</a>
-										<a href="#" class="action-link feedback-link" data-file="Fabric of the City of Wisdom"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+										<a href="#" class="action-link edit-link">Edit</a> | 
+										<a href="#" class="action-link delete-link">Delete</a> | 
+										<a href="#" class="action-link edit-link" style="color:#34d399;" data-file="Fabric of the City of Wisdom"><i class="fa-solid fa-download"></i> Download</a> | 
+										<a href="#" class="action-link edit-link" style="color:#fbbf24;" data-file="Fabric of the City of Wisdom"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
 									</td>
 								</tr>
 								<tr>
 									<td>5</td>
-									<td>Quiet Times by the Riverbank</td>
+									<td class="project-title-cell">Quiet Times by the Riverbank</td>
 									<td>Architectural Plans (A-Series)</td>
 									<td>Dripping Verdant Light</td>
 									<td class="action-col">
-										<a href="#" class="action-link edit-link">Edit</a> 
-										<a href="#" class="action-link delete-link">Delete</a>
-										<a href="#" class="action-link download-link" data-file="Dripping Verdant Light"><i class="fa-solid fa-download"></i> Download</a>
-										<a href="#" class="action-link feedback-link" data-file="Dripping Verdant Light"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+										<a href="#" class="action-link edit-link">Edit</a> | 
+										<a href="#" class="action-link delete-link">Delete</a> | 
+										<a href="#" class="action-link edit-link" style="color:#34d399;" data-file="Dripping Verdant Light"><i class="fa-solid fa-download"></i> Download</a> | 
+										<a href="#" class="action-link edit-link" style="color:#fbbf24;" data-file="Dripping Verdant Light"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
 									</td>
 								</tr>
 								<tr>
 									<td>6</td>
-									<td>Quiet Times by the Riverbank</td>
+									<td class="project-title-cell">Quiet Times by the Riverbank</td>
 									<td>Landscape (Trees, exterior pavements, retaining walls)</td>
 									<td>Flaming Catalyst</td>
 									<td class="action-col">
-										<a href="#" class="action-link edit-link">Edit</a> 
-										<a href="#" class="action-link delete-link">Delete</a>
-										<a href="#" class="action-link download-link" data-file="Flaming Catalyst"><i class="fa-solid fa-download"></i> Download</a>
-										<a href="#" class="action-link feedback-link" data-file="Flaming Catalyst"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+										<a href="#" class="action-link edit-link">Edit</a> | 
+										<a href="#" class="action-link delete-link">Delete</a> | 
+										<a href="#" class="action-link edit-link" style="color:#34d399;" data-file="Flaming Catalyst"><i class="fa-solid fa-download"></i> Download</a> | 
+										<a href="#" class="action-link edit-link" style="color:#fbbf24;" data-file="Flaming Catalyst"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
 									</td>
 								</tr>
 								<tr>
 									<td>7</td>
-									<td>Court of Justice's Artistry</td>
+									<td class="project-title-cell">Court of Justice's Artistry</td>
 									<td>Architectural Plans (A-Series)</td>
 									<td>Linden Wood Half-Metal Announcement Board</td>
 									<td class="action-col">
-										<a href="#" class="action-link edit-link">Edit</a> 
-										<a href="#" class="action-link delete-link">Delete</a>
-										<a href="#" class="action-link download-link" data-file="Linden Wood Half-Metal Announcement Board"><i class="fa-solid fa-download"></i> Download</a>
-										<a href="#" class="action-link feedback-link" data-file="Linden Wood Half-Metal Announcement Board"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+										<a href="#" class="action-link edit-link">Edit</a> | 
+										<a href="#" class="action-link delete-link">Delete</a> | 
+										<a href="#" class="action-link edit-link" style="color:#34d399;" data-file="Linden Wood Half-Metal Announcement Board"><i class="fa-solid fa-download"></i> Download</a> | 
+										<a href="#" class="action-link edit-link" style="color:#fbbf24;" data-file="Linden Wood Half-Metal Announcement Board"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
 									</td>
 								</tr>
 							</tbody>
@@ -194,7 +212,7 @@
 		<div class="comments-backdrop" id="feedbackBackdrop"></div>
 		<div class="comments-panel feedback-panel" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
 			<button class="modal-close" id="feedbackClose" aria-label="Close">&times;</button>
-			<h3 id="feedbackTitle">Feedback</h3>
+			<h3 id="feedbackTitle" class="modal-header-title">Feedback</h3>
 			<div class="comments-version" id="feedbackFile"></div>
 			<ul class="comments-list" id="feedbackList"></ul>
 		</div>
@@ -204,15 +222,15 @@
 		<div class="modal-backdrop" id="categoryModalBackdrop"></div>
 		<div class="modal-panel !max-w-[720px] flex flex-col max-h-[90vh]" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
 			<button class="modal-close" id="categoryModalClose" aria-label="Close">&times;</button>
-			<h2 id="categoryModalTitle" class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-tags mr-2 text-indigo-400"></i>Category Workspace</h2>
+			<h2 id="categoryModalTitle" class="modal-header-title"><i class="fa-solid fa-tags"></i>Category Workspace</h2>
 			
 			<div class="overflow-y-auto pr-1 custom-scrollbar">
 				<div class="modal-section mb-5 bg-[#0f1724] p-4 border border-[#1f293d] rounded-lg">
 					<h3 class="text-sm font-semibold text-white mb-3">Add Category</h3>
 					<div class="flex gap-2 items-end">
 						<div class="flex-1">
-							<label for="newCategoryName" class="block text-xs font-medium text-gray-400 mb-1">Category Name</label>
-							<input type="text" id="newCategoryName" placeholder="Enter custom category label..." style="width:100%; padding:0.55rem; border-radius:0.45rem; background:#0b1221; border:1px solid #1f293d; color:#d1d5db;">
+							<label for="newCategoryName" class="modal-label">Category Name</label>
+							<input type="text" id="newCategoryName" placeholder="Enter custom category label..." class="modal-input">
 						</div>
 						<button id="addCategorySubmitBtn" class="action-btn primary !py-[0.58rem]">Add Category</button>
 					</div>
@@ -221,9 +239,9 @@
 				<div class="modal-section mb-5">
 					<h3 class="text-sm font-semibold text-white mb-2">Search Category</h3>
 					<div class="flex gap-2">
-						<input type="text" id="searchCategoryInput" placeholder="Search Category Name..." style="flex:1; padding:0.55rem; border-radius:0.45rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+						<input type="text" id="searchCategoryInput" placeholder="Search Category Name..." class="modal-input" style="flex:1;">
 						<button id="searchCategoryBtn" class="search-btn !py-2 !px-4 text-sm">Search</button>
-						<button id="resetCategorySearchBtn" class="reset-btn !py-2 !px-4 text-sm">Reset</button>
+						<button id="resetCategorySearchBtn" class="filter-reset-btn !py-2 !px-4 text-sm">Reset</button>
 					</div>
 				</div>
 
@@ -233,8 +251,8 @@
 						<table class="blueprint-table !text-xs">
 							<thead>
 								<tr class="bg-[#0f1724]">
-									<th class="w-16">ID <i class="fa-solid fa-sort-up text-[10px] ml-1"></i><i class="fa-solid fa-sort-down text-[10px]"></i></th>
-									<th>Category Name <i class="fa-solid fa-sort-up text-[10px] ml-1"></i><i class="fa-solid fa-sort-down text-[10px]"></i></th>
+									<th class="w-16">ID <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
+									<th>Category Name <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
 									<th class="action-col w-28">Action</th>
 								</tr>
 							</thead>
@@ -270,6 +288,12 @@
 			}
 		}
 
+		function handleSignOut() {
+			if (confirm("Are you sure you want to sign out?")) {
+				alert("Signing out...");
+			}
+		}
+
 		const addBlueprintBtn = document.getElementById('addBlueprintBtn');
 		const addBlueprintModal = document.getElementById('addBlueprintModal');
 		const addBlueprintClose = document.getElementById('addBlueprintClose');
@@ -294,7 +318,7 @@
 		}
 
 		addBlueprintClose.addEventListener('click', closeAddBlueprintModal);
-		addBlueprintCancel.addEventListener('click', closeAddBlueprintModal);
+		if(addBlueprintCancel) addBlueprintCancel.addEventListener('click', closeAddBlueprintModal);
 		addBlueprintBackdrop.addEventListener('click', closeAddBlueprintModal);
 
 		addBlueprintSubmit.addEventListener('click', () => {
@@ -350,25 +374,19 @@
 				const matchesProject = !projectFilter || project.includes(projectFilter);
 				const matchesCategory = !categoryFilter || category.includes(categoryFilter);
 
-				if(row.closest('#categoryTableBody')) return; // skip category workspace rows
+				if(row.closest('#categoryTableBody')) return; 
 				row.style.display = (matchesSearch && matchesProject && matchesCategory) ? '' : 'none';
 			});
 		}
 
 		document.querySelectorAll('.edit-link, .delete-link').forEach(link => {
 			link.addEventListener('click', (e) => {
+				if(link.closest('#categoryTableBody')) return;
 				e.preventDefault();
-				const action = link.textContent;
+				const action = link.textContent.trim().replace('|','');
 				const row = link.closest('tr');
 				const name = row.cells[3] ? row.cells[3].textContent : row.cells[1].textContent;
 				alert(`${action} action for: ${name}`);
-			});
-		});
-
-		document.querySelectorAll('.download-link').forEach(link => {
-			link.addEventListener('click', (e) => {
-				e.preventDefault();
-				alert(`Downloading file: ${link.dataset.file}...`);
 			});
 		});
 
@@ -401,11 +419,19 @@
 			feedbackOverlay.setAttribute('aria-hidden', 'true');
 		}
 
-		document.querySelectorAll('.feedback-link').forEach(link => {
-			link.addEventListener('click', (e) => {
-				e.preventDefault();
-				openFeedback(link.dataset.file);
-			});
+		document.querySelectorAll('.action-link').forEach(link => {
+			if (link.textContent.includes('Feedback')) {
+				link.addEventListener('click', (e) => {
+					e.preventDefault();
+					openFeedback(link.dataset.file);
+				});
+			}
+			if (link.textContent.includes('Download')) {
+				link.addEventListener('click', (e) => {
+					e.preventDefault();
+					alert(`Downloading file: ${link.dataset.file}...`);
+				});
+			}
 		});
 
 		if (feedbackClose) feedbackClose.addEventListener('click', closeFeedback);

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="has-theme-dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - WEBCON</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="projects.css">
 </head>
@@ -25,21 +24,40 @@
             </div>
 
             <nav class="sidebar-nav">
-                <a class="nav-item active" href="projects.html"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
-                <a class="nav-item" href="blueprints.html"><i class="fa-solid fa-map"></i><span>Blueprints</span></a>
-                <a class="nav-item" href="revisions.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Revisions</span></a>
-                <a class="nav-item" href="consultants.html"><i class="fa-solid fa-users"></i><span>Consultants</span></a>
+                <div class="nav-links">
+                    <a class="nav-item active" href="projects.html"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
+                    <a class="nav-item" href="blueprints.html"><i class="fa-solid fa-map"></i><span>Blueprints</span></a>
+                    <a class="nav-item" href="revisions.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Revisions</span></a>
+                    <a class="nav-item" href="consultants.html"><i class="fa-solid fa-users"></i><span>Consultants</span></a>
+                </div>
+                
+                <!-- Added Sign Out Button Component Section -->
+                <div class="sidebar-footer">
+                    <button class="nav-item signout-btn" onclick="handleSignOut()">
+                        <i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span>
+                    </button>
+                </div>
             </nav>
         </aside>
 
         <main class="main-content">
             <div class="bp-container">
                 
+                <!-- Top Action Header Layout Component match Consultants layout -->
+                <section class="panel consultant-welcome">
+                    <span class="consultant-icon"><i class="fa-solid fa-hand-peace"></i></span>
+                    <p class="consultant-text">
+                        Welcome back, <b>Engr. Zoey Pangan</b>
+                        <span class="divider">|</span>
+                        Role: Technical Consultant (Mechanical)
+                    </p>
+                </section>
+
                 <section class="search-section">
                     <h3 class="search-title">Search Projects</h3>
                     <div class="search-row">
                         <input type="text" id="projectSearchInput" class="search-input" placeholder="Search Project or Client...">
-                        <button class="search-btn"><i class="fa-solid fa-magnifying-glass mr-1"></i> Search</button>
+                        <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                         <button class="reset-btn">Reset</button>
                     </div>
                 </section>
@@ -47,7 +65,7 @@
                 <section class="blueprint-list-section">
                     <div class="list-header-row">
                         <h3 class="list-title">Project List</h3>
-                        <div class="flex gap-2">
+                        <div class="flex-actions-row">
                             <button id="openFilterModalBtn" class="action-btn">
                                 <i class="fa-solid fa-filter"></i>
                                 <span>Filter Projects</span>
@@ -63,19 +81,19 @@
                         <table class="blueprint-table">
                             <thead>
                                 <tr>
-                                    <th>ID <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
-                                    <th>Project <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
-                                    <th>Client <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
-                                    <th>Start <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
-                                    <th>End <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
-                                    <th>Status <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
+                                    <th>ID <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
+                                    <th>Project <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
+                                    <th>Client <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
+                                    <th>Start <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
+                                    <th>End <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
+                                    <th>Status <i class="fa-solid fa-sort-up"></i><i class="fa-solid fa-sort-down"></i></th>
                                     <th class="action-col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>3</td>
-                                    <td class="font-semibold text-white">Court of Justice's Artistry</td>
+                                    <td class="project-title-cell">Court of Justice's Artistry</td>
                                     <td>Neuvillette</td>
                                     <td>2026-07-01</td>
                                     <td>2026-08-21</td>
@@ -87,7 +105,7 @@
                                 </tr>
                                 <tr>
                                     <td>7</td>
-                                    <td class="font-semibold text-white">Quiet Times by the Riverbank</td>
+                                    <td class="project-title-cell">Quiet Times by the Riverbank</td>
                                     <td>Kunikuzushi</td>
                                     <td>2026-06-06</td>
                                     <td>2026-07-06</td>
@@ -99,7 +117,7 @@
                                 </tr>
                                 <tr>
                                     <td>8</td>
-                                    <td class="font-semibold text-white">Solitary Light in the Long Night</td>
+                                    <td class="project-title-cell">Solitary Light in the Long Night</td>
                                     <td>Kyryll Flins</td>
                                     <td>2026-07-31</td>
                                     <td>2026-09-01</td>
@@ -117,20 +135,23 @@
         </main>
     </div>
 
+    <!-- Filter Projects Dialog Overlay -->
     <div id="filterProjectsModal" class="modal" aria-hidden="true" hidden>
         <div class="modal-backdrop" id="filterModalBackdrop"></div>
-        <div class="modal-panel !max-w-[500px]" role="dialog" aria-modal="true" aria-labelledby="filterModalTitle">
+        <div class="modal-panel max-width-filter" role="dialog" aria-modal="true" aria-labelledby="filterModalTitle">
             <button class="modal-close" id="filterModalClose" aria-label="Close">&times;</button>
-            <h2 id="filterModalTitle" class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-filter mr-2 text-indigo-400"></i>Filter Projects</h2>
+            <h2 id="filterModalTitle" class="modal-header-title">
+                <i class="fa-solid fa-filter"></i>Filter Projects
+            </h2>
             
-            <div class="modal-section mb-4">
-                <label for="filterClient" class="block text-sm font-medium text-gray-400 mb-1">Client:</label>
-                <input type="text" id="filterClient" placeholder="Enter client name" style="width:100%; padding:0.65rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+            <div class="modal-section">
+                <label for="filterClient" class="modal-label">Client:</label>
+                <input type="text" id="filterClient" class="modal-input" placeholder="Enter client name">
             </div>
 
-            <div class="modal-section mb-4">
-                <label for="filterStatus" class="block text-sm font-medium text-gray-400 mb-1">Status:</label>
-                <select id="filterStatus" style="width:100%; padding:0.65rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+            <div class="modal-section">
+                <label for="filterStatus" class="modal-label">Status:</label>
+                <select id="filterStatus" class="modal-select">
                     <option value="">All Status</option>
                     <option value="Pending">Pending</option>
                     <option value="Ongoing">Ongoing</option>
@@ -138,63 +159,64 @@
                 </select>
             </div>
 
-            <div class="modal-section mb-4">
-                <label class="block text-sm font-medium text-gray-400 mb-1">Start Date Range:</label>
-                <div class="flex gap-2">
-                    <input type="date" id="filterStartMin" style="width:50%; padding:0.5rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
-                    <input type="date" id="filterStartMax" style="width:50%; padding:0.5rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+            <div class="modal-section">
+                <label class="modal-label">Start Date Range:</label>
+                <div class="modal-range-group">
+                    <input type="date" id="filterStartMin" class="modal-range-input">
+                    <input type="date" id="filterStartMax" class="modal-range-input">
                 </div>
             </div>
 
-            <div class="modal-section mb-6">
-                <label class="block text-sm font-medium text-gray-400 mb-1">End Date Range:</label>
-                <div class="flex gap-2">
-                    <input type="date" id="filterEndMin" style="width:50%; padding:0.5rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
-                    <input type="date" id="filterEndMax" style="width:50%; padding:0.5rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+            <div class="modal-section margin-bottom-large">
+                <label class="modal-label">End Date Range:</label>
+                <div class="modal-range-group">
+                    <input type="date" id="filterEndMin" class="modal-range-input">
+                    <input type="date" id="filterEndMax" class="modal-range-input">
                 </div>
             </div>
 
-            <div class="modal-actions border-t border-[#1f293d] pt-4">
-                <button id="resetFilterBtn" class="filter-reset-btn !py-2 !px-4">Reset</button>
-                <button id="applyFilterBtn" class="filter-apply-btn !py-2 !px-4">Apply Filters</button>
+            <div class="modal-actions border-top-divider">
+                <button id="resetFilterBtn" class="filter-reset-btn">Reset</button>
+                <button id="applyFilterBtn" class="filter-apply-btn">Apply Filters</button>
             </div>
         </div>
     </div>
 
+    <!-- Upload/Add Project Dialog Overlay -->
     <div id="uploadProjectModal" class="modal" aria-hidden="true" hidden>
         <div class="modal-backdrop" id="uploadModalBackdrop"></div>
-        <div class="modal-panel !max-w-[550px]" role="dialog" aria-modal="true" aria-labelledby="uploadModalTitle">
+        <div class="modal-panel max-width-upload" role="dialog" aria-modal="true" aria-labelledby="uploadModalTitle">
             <button class="modal-close" id="uploadModalClose" aria-label="Close">&times;</button>
-            <h2 id="uploadModalTitle" class="text-xl font-bold mb-4 text-white">
-                <i class="fa-solid fa-cloud-arrow-up mr-2 text-indigo-400"></i>Add New Project
+            <h2 id="uploadModalTitle" class="modal-header-title">
+                <i class="fa-solid fa-cloud-arrow-up"></i>Add New Project
             </h2>
             
-            <div class="modal-section mb-4">
-                <label for="newProjectName" class="block text-sm font-medium text-gray-400 mb-1">Project Name *</label>
-                <input type="text" id="newProjectName" placeholder="Enter custom project designation..." style="width:100%; padding:0.65rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;" required>
+            <div class="modal-section">
+                <label for="newProjectName" class="modal-label">Project Name *</label>
+                <input type="text" id="newProjectName" class="modal-input" placeholder="Enter custom project designation..." required>
             </div>
 
-            <div class="modal-section mb-4">
-                <label for="newProjectClient" class="block text-sm font-medium text-gray-400 mb-1">Client Name *</label>
-                <input type="text" id="newProjectClient" placeholder="Enter client label..." style="width:100%; padding:0.65rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;" required>
+            <div class="modal-section">
+                <label for="newProjectClient" class="modal-label">Client Name *</label>
+                <input type="text" id="newProjectClient" class="modal-input" placeholder="Enter client label..." required>
             </div>
 
-            <div class="modal-section mb-4">
-                <label class="block text-sm font-medium text-gray-400 mb-1">Attach Initial Project Files</label>
+            <div class="modal-section">
+                <label class="modal-label">Attach Initial Project Files</label>
                 <label class="file-drop" id="projectFileDrop"> 
                     <input type="file" id="projectFilesInput" multiple hidden />
-                    <div class="file-drop-inner py-4">
-                        <i class="fa-solid fa-folder-open fa-2x mb-2 text-indigo-400/60"></i><br/>
+                    <div class="file-drop-inner">
+                        <i class="fa-solid fa-folder-open"></i><br/>
                         Drag & drop structural/design files here<br/>
-                        <span class="text-xs text-gray-500">or click to scan local workspace</span>
+                        <span class="file-drop-subtext">or click to scan local workspace</span>
                     </div>
                 </label>
-                <div id="projectFileList" class="file-list max-h-[150px] overflow-y-auto custom-scrollbar mt-2" aria-live="polite"></div>
+                <div id="projectFileList" class="file-list-container custom-scrollbar" aria-live="polite"></div>
             </div>
 
-            <div class="modal-actions border-t border-[#1f293d] pt-4">
-                <button id="uploadModalCancel" class="filter-reset-btn !py-2 !px-4">Cancel</button>
-                <button id="uploadModalSubmit" class="action-btn primary !py-2 !px-4">Commit Project</button>
+            <div class="modal-actions border-top-divider">
+                <button id="uploadModalCancel" class="filter-reset-btn">Cancel</button>
+                <button id="uploadModalSubmit" class="action-btn primary">Commit Project</button>
             </div>
         </div>
     </div>
@@ -209,6 +231,13 @@
             } else {
                 toggleIcon.classList.remove('fa-chevron-right');
                 toggleIcon.classList.add('fa-chevron-left');
+            }
+        }
+
+        function handleSignOut() {
+            if (confirm("Are you sure you want to sign out?")) {
+                alert("Signing out...");
+                // Add redirect logic here if needed: window.location.href = 'login.html';
             }
         }
 
@@ -303,10 +332,10 @@
             projectFileList.innerHTML = '';
             Array.from(files).forEach((file) => {
                 const item = document.createElement('div');
-                item.className = 'file-item p-2 flex items-center justify-between rounded bg-[rgba(255,255,255,0.02)] text-xs text-gray-300 mb-1 border border-[#1f293d]';
+                item.className = 'dynamic-file-row';
                 item.innerHTML = `
-                    <div><i class="fa-regular fa-file-lines mr-2 text-indigo-400"></i>${file.name} <span class="text-gray-500">(${Math.round(file.size / 1024)} KB)</span></div>
-                    <button class="text-red-400 hover:text-red-300 text-xs" onclick="this.parentElement.remove()">Remove</button>
+                    <div class="file-meta-info"><i class="fa-regular fa-file-lines"></i>${file.name} <span class="file-size-label">(${Math.round(file.size / 1024)} KB)</span></div>
+                    <button class="file-remove-action" onclick="this.parentElement.remove()">Remove</button>
                 `;
                 projectFileList.appendChild(item);
             });
@@ -324,4 +353,4 @@
         });
     </script>
 </body>
-</html>
+</html> 

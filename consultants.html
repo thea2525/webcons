@@ -1,108 +1,448 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Consultants - WebCon</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="projects.css">
-  <link rel="stylesheet" href="consultants.css">
-</head>
-<body>
-  <div class="app-shell" id="appShell">
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-top">
-        <div class="brand">
-          <div class="brand-icon"><i class="fa-solid fa-building-columns"></i></div>
-          <div class="brand-copy">
-            <p class="brand-name">WEBCON</p>
-            <p class="brand-subtitle">Blueprint Version Control</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consultants</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="consultants.css" />
+  </head>
+  <body>
+    <div class="app-shell" id="appShell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+          <div class="brand">
+            <div class="brand-icon">
+              <i class="fa-solid fa-building-columns"></i>
+            </div>
+            <div class="brand-copy">
+              <p class="brand-name">WEBCON</p>
+              <p class="brand-subtitle">Blueprint Version Control</p>
+            </div>
+          </div>
+          <button
+            class="sidebar-toggle"
+            id="sidebarToggle"
+            onclick="toggleSidebar()"
+            aria-label="Toggle sidebar"
+          >
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-links">
+            <a href="projects.html" class="nav-item"
+              ><i class="fa-solid fa-folder"></i><span>Projects</span></a
+            >
+            <a href="blueprints.html" class="nav-item"
+              ><i class="fa-solid fa-map"></i><span>Blueprints</span></a
+            >
+            <a href="revisions.html" class="nav-item"
+              ><i class="fa-solid fa-clock-rotate-left"></i><span>Revisions</span></a
+            >
+            <a href="consultants.html" class="nav-item active"
+              ><i class="fa-solid fa-users"></i><span>Consultants</span></a
+            >
+          </div>
+
+          <!-- Added Sign Out Button Component Section to match Projects page -->
+          <div class="sidebar-footer">
+            <button class="nav-item signout-btn" onclick="handleSignOut()">
+              <i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span>
+            </button>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <!-- Wrapped content inside bp-container to match projects alignment -->
+        <div class="bp-container">
+          <div class="page-content">
+            <section class="panel consultant-welcome">
+              <span class="consultant-icon"
+                ><i class="fa-solid fa-hand-peace"></i
+              ></span>
+              <p class="consultant-text">
+                Welcome back, <b>Engr. Zoey Pangan</b>
+                <span class="divider">|</span>
+                Role: Technical Consultant (Mechanical)
+              </p>
+            </section>
+
+            <section class="panel consultant-alert">
+              <span class="consultant-icon alert-icon"
+                ><i class="fa-solid fa-bullhorn"></i
+              ></span>
+              <p class="consultant-text">
+                Action Required: 1 New Blueprint Update Awaiting Your Evaluation
+              </p>
+            </section>
+
+            <section class="panel workspace-panel">
+              <div class="panel-heading">
+                <i class="fa-solid fa-bullseye"></i>
+                <h3>Active Evaluation Workspace:</h3>
+              </div>
+              <div class="workspace-body">
+                <div class="drawing-label">
+                  Selected Drawing: <b>MECH-02-HVAC</b> (Version: v2.0)
+                </div>
+                <button
+                  class="view-file-btn"
+                  type="button"
+                  onclick="viewFile('MECH-02-HVAC')"
+                >
+                  <i class="fa-solid fa-file-lines"></i>
+                  <span>View File</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="panel feedback-panel">
+              <div class="panel-heading">
+                <i class="fa-solid fa-paper-plane"></i>
+                <h3>Submit Verification &amp; Corrections</h3>
+              </div>
+
+              <div class="feedback-table" id="feedbackTable">
+                <div class="feedback-row feedback-row-head">
+                  <div>Drawing</div>
+                  <div>Version</div>
+                  <div>Status</div>
+                  <div>Feedback</div>
+                  <div style="text-align: right">Action</div>
+                </div>
+                <div id="feedbackTableBody"></div>
+              </div>
+            </section>
+
+            <!-- Floating comment modal -->
+            <div class="feedback-overlay" id="feedbackOverlay">
+              <div class="feedback-modal">
+                <div class="feedback-modal-header">
+                  <div>
+                    <div class="feedback-modal-title">
+                      <i class="fa-solid fa-comment-dots"></i>
+                      Feedback — <span id="modalDrawing"></span>
+                    </div>
+                    <p class="feedback-modal-sub">
+                      Version <span id="modalVersion"></span>
+                    </p>
+                  </div>
+                  <button
+                    class="feedback-close-btn"
+                    id="closeFeedbackModal"
+                    type="button"
+                  >
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+
+                <div class="feedback-modal-body" id="commentList"></div>
+
+                <div class="feedback-add-row">
+                  <button
+                    class="feedback-add-comment-btn"
+                    id="addCommentBtn"
+                    type="button"
+                  >
+                    <i class="fa-solid fa-plus"></i>
+                    Add another comment
+                  </button>
+                </div>
+
+                <div class="feedback-modal-footer">
+                  <div class="feedback-footer-note">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    Dispatching notifies the design team immediately.
+                  </div>
+                  <div class="feedback-footer-actions">
+                    <button
+                      class="feedback-btn feedback-btn-cancel"
+                      id="cancelFeedbackModal"
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      class="feedback-btn feedback-btn-dispatch"
+                      id="dispatchBtn"
+                      type="button"
+                    >
+                      <i class="fa-solid fa-rocket"></i>
+                      Dispatch Evaluation
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-      </div>
+      </main>
+    </div>
 
-      <nav class="sidebar-nav">
-        <a class="nav-item" href="projects.html"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
-        <a class="nav-item" href="blueprints.html"><i class="fa-solid fa-map"></i><span>Blueprints</span></a>
-        <a class="nav-item" href="revisions.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Revisions</span></a>
-        <a class="nav-item active" href="consultants.html"><i class="fa-solid fa-users"></i><span>Consultants</span></a>
-      </nav>
-    </aside>
-
-    <main class="main-content">
-      <div class="page-content">
-        <section class="panel">
-          <div class="summary-inner">
-            <div>
-              <h2 class="project-title">Welcome back, Engr. Zoey Pangan</h2>
-              <p class="project-meta">Role: Technical Consultant (Mechanical)</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="panel">
-          <div class="table-header">
-            <h3>Active Evaluation Workspace</h3>
-          </div>
-          <div style="padding:1rem;">
-            <div class="info-box">Selected Drawing: MECH-02-HVAC (Version: v2.0)</div>
-          </div>
-        </section>
-
-        <section class="panel history-panel">
-          <div class="table-header">
-            <h3>Submit Verification & Corrections</h3>
-          </div>
-          <div style="padding:1rem;">
-            <label class="label">Feedback Type:</label>
-            <select id="feedbackType" class="select">
-              <option>Design Conflict / Revision Required</option>
-              <option>Clarification / Question</option>
-              <option>Minor Comment</option>
-            </select>
-
-            <label class="label">Comments / Instructions:</label>
-            <textarea id="consultantNotes" class="notes" rows="5" placeholder="Add your comments and instructions here" required></textarea>
-
-            <div class="actions-row">
-              <button class="action-btn" id="dispatchBtn"><i class="fa-solid fa-rocket"></i> Dispatch Evaluation</button>
-            </div>
-
-          </div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <script>
-    function toggleSidebar() {
-      document.body.classList.toggle('sidebar-collapsed');
-      const toggleIcon = document.querySelector('.sidebar-toggle i');
-      if (document.body.classList.contains('sidebar-collapsed')) {
-        toggleIcon.classList.remove('fa-chevron-left');
-        toggleIcon.classList.add('fa-chevron-right');
-      } else {
-        toggleIcon.classList.remove('fa-chevron-right');
-        toggleIcon.classList.add('fa-chevron-left');
+    <script>
+      function toggleSidebar() {
+        document.body.classList.toggle("sidebar-collapsed");
+        const toggleIcon = document.querySelector(".sidebar-toggle i");
+        if (document.body.classList.contains("sidebar-collapsed")) {
+          toggleIcon.classList.remove("fa-chevron-left");
+          toggleIcon.classList.add("fa-chevron-right");
+        } else {
+          toggleIcon.classList.remove("fa-chevron-right");
+          toggleIcon.classList.add("fa-chevron-left");
+        }
       }
-    }
 
-    // simple dispatch handler - validates and appends to console for demo
-    document.getElementById('dispatchBtn').addEventListener('click', () => {
-      const type = document.getElementById('feedbackType').value;
-      const notesEl = document.getElementById('consultantNotes');
-      // use browser validation UI instead of alerting when empty
-      if (!notesEl.checkValidity()) { notesEl.reportValidity(); return; }
-      const notes = notesEl.value.trim();
-      // append a console log and show a confirmation
-      console.log('Dispatching evaluation:', { type, notes });
-      alert('Evaluation dispatched.');
-      notesEl.value = '';
-    });
-  </script>
-</body>
+      function handleSignOut() {
+        if (confirm("Are you sure you want to sign out?")) {
+          alert("Signing out...");
+        }
+      }
+
+      function viewFile(fileName) {
+        alert("Opening file: " + fileName);
+      }
+
+      // ===== Feedback table + modal logic =====
+      const FEEDBACK_TYPES = [
+        "Design Conflict / Revision Required",
+        "Approved",
+        "Rejected",
+        "Comment Only",
+      ];
+
+      const statusClassMap = {
+        "Pending Review": "status-pending",
+        "Design Conflict": "status-conflict",
+        Approved: "status-approved",
+        Rejected: "status-rejected",
+      };
+
+      let feedbackRows = [
+        {
+          id: "r1",
+          drawing: "MECH-02-HVAC",
+          version: "v2.0",
+          status: "Design Conflict",
+          comments: [
+            {
+              id: "c1",
+              type: "Design Conflict / Revision Required",
+              text: "The duct layout on the 3rd floor intersects directly with the structural beam points outlined in ARCH-01-FP v3.1. Please lower clearance levels or modify the main shaft corridor routing.",
+              reference: "ARCH-01-FP v3.1",
+              author: "Zoey Pangan",
+              time: "Today, 9:42 AM",
+            },
+          ],
+        },
+        {
+          id: "r2",
+          drawing: "ELEC-04-PANEL",
+          version: "v1.3",
+          status: "Pending Review",
+          comments: [],
+        },
+      ];
+
+      let activeRowId = null;
+      let draftComments = [];
+
+      function emptyComment() {
+        return {
+          id: "draft-" + Math.random().toString(36).slice(2, 9),
+          type: FEEDBACK_TYPES[0],
+          text: "",
+          reference: "",
+          author: "Zoey Pangan",
+          time: "Just now",
+        };
+      }
+
+      function renderFeedbackTable() {
+        const body = document.getElementById("feedbackTableBody");
+        if (!body) return;
+        body.innerHTML = "";
+
+        feedbackRows.forEach((row) => {
+          const count = row.comments.length;
+          const statusClass = statusClassMap[row.status] || "status-pending";
+
+          const rowEl = document.createElement("div");
+          rowEl.className = "feedback-row";
+          rowEl.innerHTML = `
+            <div class="feedback-drawing-cell">
+              <i class="fa-solid fa-file-lines"></i>
+              ${row.drawing}
+            </div>
+            <div class="feedback-version-cell">${row.version}</div>
+            <div>
+              <span class="feedback-status-pill ${statusClass}">
+                <span class="dot"></span>${row.status}
+              </span>
+            </div>
+            <div>
+              ${
+                count > 0
+                  ? `<button class="feedback-comment-link" data-open="${row.id}">
+                       <span class="feedback-comment-badge">${count}</span>
+                       ${count === 1 ? "comment" : "comments"}
+                     </button>`
+                  : `<span class="feedback-no-comments">No comments yet</span>`
+              }
+            </div>
+            <div class="feedback-action-cell">
+              <button class="feedback-add-btn" data-open="${row.id}" title="Add feedback" type="button">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          `;
+          body.appendChild(rowEl);
+        });
+
+        body.querySelectorAll("[data-open]").forEach((btn) => {
+          btn.addEventListener("click", () =>
+            openFeedbackModal(btn.getAttribute("data-open")),
+          );
+        });
+      }
+
+      function openFeedbackModal(rowId) {
+        const row = feedbackRows.find((r) => r.id === rowId);
+        if (!row) return;
+        activeRowId = rowId;
+        draftComments = row.comments.length
+          ? row.comments.map((c) => ({ ...c }))
+          : [emptyComment()];
+
+        document.getElementById("modalDrawing").textContent = row.drawing;
+        document.getElementById("modalVersion").textContent = row.version;
+
+        renderCommentDrafts();
+        document.getElementById("feedbackOverlay").classList.add("open");
+      }
+
+      function closeFeedbackModal() {
+        document.getElementById("feedbackOverlay").classList.remove("open");
+        activeRowId = null;
+        draftComments = [];
+      }
+
+      function renderCommentDrafts() {
+        const list = document.getElementById("commentList");
+        list.innerHTML = "";
+
+        draftComments.forEach((c, idx) => {
+          const card = document.createElement("div");
+          card.className = "feedback-comment-card";
+          card.innerHTML = `
+            <div class="feedback-comment-card-top">
+              <span class="feedback-comment-label">Comment ${idx + 1}</span>
+              ${
+                draftComments.length > 1
+                  ? `<button class="feedback-remove-btn" data-remove="${c.id}" type="button">
+                       <i class="fa-solid fa-trash"></i>
+                     </button>`
+                  : ""
+              }
+            </div>
+            <div class="feedback-field-grid">
+              <div>
+                <label class="feedback-field-label">Type</label>
+                <select data-field="type" data-id="${c.id}">
+                  ${FEEDBACK_TYPES.map(
+                    (t) =>
+                      `<option value="${t}" ${t === c.type ? "selected" : ""}>${t}</option>`,
+                  ).join("")}
+                </select>
+              </div>
+              <div>
+                <label class="feedback-field-label">Reference drawing</label>
+                <input type="text" data-field="reference" data-id="${c.id}" value="${c.reference}" placeholder="e.g. ARCH-01-FP v3.1" />
+              </div>
+            </div>
+            <div>
+              <label class="feedback-field-label">Comment</label>
+              <textarea rows="3" data-field="text" data-id="${c.id}" placeholder="Describe the issue or instruction...">${c.text}</textarea>
+            </div>
+            <div class="feedback-meta-line">
+              <i class="fa-regular fa-clock"></i>
+              ${c.author} · ${c.time}
+            </div>
+          `;
+          list.appendChild(card);
+        });
+
+        list.querySelectorAll("[data-field]").forEach((el) => {
+          el.addEventListener("input", (e) => {
+            const id = e.target.getAttribute("data-id");
+            const field = e.target.getAttribute("data-field");
+            const comment = draftComments.find((c) => c.id === id);
+            if (comment) comment[field] = e.target.value;
+          });
+        });
+
+        list.querySelectorAll("[data-remove]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-remove");
+            draftComments = draftComments.filter((c) => c.id !== id);
+            renderCommentDrafts();
+          });
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderFeedbackTable();
+
+        document
+          .getElementById("addCommentBtn")
+          ?.addEventListener("click", () => {
+            draftComments.push(emptyComment());
+            renderCommentDrafts();
+          });
+
+        document
+          .getElementById("closeFeedbackModal")
+          ?.addEventListener("click", closeFeedbackModal);
+        document
+          .getElementById("cancelFeedbackModal")
+          ?.addEventListener("click", closeFeedbackModal);
+        document
+          .getElementById("feedbackOverlay")
+          ?.addEventListener("click", (e) => {
+            if (e.target.id === "feedbackOverlay") closeFeedbackModal();
+          });
+
+        document
+          .getElementById("dispatchBtn")
+          ?.addEventListener("click", () => {
+            const cleaned = draftComments.filter(
+              (c) => c.text.trim().length > 0,
+            );
+            feedbackRows = feedbackRows.map((r) => {
+              if (r.id !== activeRowId) return r;
+              let status = r.status;
+              if (
+                cleaned.some(
+                  (c) => c.type === "Design Conflict / Revision Required",
+                )
+              )
+                status = "Design Conflict";
+              else if (cleaned.some((c) => c.type === "Approved"))
+                status = "Approved";
+              else if (cleaned.some((c) => c.type === "Rejected"))
+                status = "Rejected";
+              return { ...r, comments: cleaned, status };
+            });
+            closeFeedbackModal();
+            renderFeedbackTable();
+          });
+      });
+    </script>
+  </body>
 </html>
