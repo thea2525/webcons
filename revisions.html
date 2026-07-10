@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Blueprint - File Profile & Revisions</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="projects.css">
+	<link rel="stylesheet" href="revisions.css">
+</head>
+<body>
+	<div class="app-shell" id="appShell">
+		<aside class="sidebar" id="sidebar">
+			<div class="sidebar-top">
+				<div class="brand">
+					<div class="brand-icon"><i class="fa-solid fa-building-columns"></i></div>
+					<div class="brand-copy">
+						<p class="brand-name">WEBCON</p>
+						<p class="brand-subtitle">Blueprint Version Control</p>
+					</div>
+				</div>
+				<button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+					<i class="fa-solid fa-chevron-left"></i>
+				</button>
+			</div>
+
+			<nav class="sidebar-nav">
+				<a class="nav-item" href="projects.html"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
+				<a class="nav-item" href="blueprints.html"><i class="fa-solid fa-map"></i><span>Blueprints</span></a>
+				<a class="nav-item active" href="revisions.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Revisions</span></a>
+				<a class="nav-item" href="consultants.html"><i class="fa-solid fa-users"></i><span>Consultants</span></a>
+			</nav>
+		</aside>
+
+		<main class="main-content">
+			<div class="bp-container">
+				<!-- Premium File Profile Card -->
+				<section class="file-profile-card">
+					<div class="profile-header-layout">
+						<div class="file-icon-wrapper">
+							<i class="fa-regular fa-file-code fa-2x"></i>
+						</div>
+						<div class="profile-details">
+							<div class="title-row">
+								<h2 class="bp-title">ARCH-01-FP</h2>
+								<span class="bp-subtitle">Main Floor Plan</span>
+							</div>
+							
+							<div class="meta-grid">
+								<div class="meta-card">
+									<span class="meta-label">Category</span>
+									<span class="meta-value text-indigo-400">Structural</span>
+								</div>
+								<div class="meta-card">
+									<span class="meta-label">Owner</span>
+									<span class="meta-value">Althea Marie Castaneda</span>
+								</div>
+								<div class="meta-card">
+									<span class="meta-label">Total Revisions</span>
+									<span class="meta-value">3 Saved</span>
+								</div>
+								<div class="meta-card highlight-border">
+									<span class="meta-label">Current Version</span>
+									<div class="flex items-center gap-2 mt-0.5">
+										<span class="version-badge">v3.1</span>
+										<span class="pulse-indicator">LATEST</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="storage-banner mt-4">
+								<i class="fa-solid fa-link text-gray-500 text-sm"></i>
+								<span class="text-xs text-gray-400 font-mono">23://webcon/files/arch_01_fp_v3.1.dwg</span>
+							</div>
+
+							<div class="quick-actions-bar">
+								<button class="btn btn-primary" id="downloadLatest">
+									<i class="fa-solid fa-cloud-arrow-down"></i> Download Latest
+								</button>
+								<button class="btn btn-secondary" id="uploadRevision">
+									<i class="fa-solid fa-arrow-up-from-bracket"></i> Upload Revision
+								</button>
+								<button class="btn btn-tertiary" id="manageAccess">
+									<i class="fa-solid fa-shield-halved"></i> Access Permissions
+								</button>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="history-panel-card">
+					<div class="panel-header">
+						<div class="panel-title-group">
+							<i class="fa-solid fa-timeline text-indigo-400"></i>
+							<h3>History of Changes & Audit Trail</h3>
+						</div>
+						<span class="badge-count">3 Versions Logged</span>
+					</div>
+
+					<div class="table-scroll-container">
+						<table class="premium-table">
+							<thead>
+								<tr>
+									<th>Version</th>
+									<th>Timestamp</th>
+									<th>Handled By</th>
+									<th>Change Description Log</th>
+									<th class="text-center">Discussion</th>
+									<th class="text-right">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="interactive-row">
+									<td><span class="version-badge font-bold">v3.1</span></td>
+									<td class="text-gray-400"><i class="fa-regular fa-clock text-xs mr-1 text-gray-500"></i> May 18, 2026 14:22</td>
+									<td class="font-medium text-slate-300">A. Castaneda</td>
+									<td class="log-text">Adjusted columns in North Wing per structural engineer feedback</td>
+									<td class="text-center">
+										<button class="btn-comment comments-btn" data-version="v3.1" data-comments="Structural team approved the revised column spacing.||Client requested a tighter north wing clearance review.||Added annotation for the steel framing update.">
+											<i class="fa-solid fa-message-square-dots mr-1"></i> Comments (3)
+										</button>
+									</td>
+									<td class="text-right">
+										<button class="btn-action-download download-row"><i class="fa-solid fa-download"></i></button>
+									</td>
+								</tr>
+								<tr class="interactive-row">
+									<td><span class="version-badge dark font-bold">v3.0</span></td>
+									<td class="text-gray-400"><i class="fa-regular fa-clock text-xs mr-1 text-gray-500"></i> May 12, 2026 10:00</td>
+									<td class="font-medium text-slate-300">M. Ocanada</td>
+									<td class="log-text">Initial layout integration for client sign-off presentation</td>
+									<td class="text-center">
+										<button class="btn-comment comments-btn" data-version="v3.0" data-comments="Presentation notes were shared with the client.||Markups focused on the main lobby circulation.||Awaiting final sign-off from the project lead.">
+											<i class="fa-solid fa-message-square-dots mr-1"></i> Comments (3)
+										</button>
+									</td>
+									<td class="text-right">
+										<button class="btn-action-download download-row"><i class="fa-solid fa-download"></i></button>
+									</td>
+								</tr>
+								<tr class="interactive-row">
+									<td><span class="version-badge dark font-bold">v2.0</span></td>
+									<td class="text-gray-400"><i class="fa-regular fa-clock text-xs mr-1 text-gray-500"></i> May 05, 2026 09:15</td>
+									<td class="font-medium text-slate-300">A. Castaneda</td>
+									<td class="log-text">Expanded elevator shaft clearance dimensions</td>
+									<td class="text-center">
+										<button class="btn-comment comments-btn" data-version="v2.0" data-comments="Elevator shaft width was expanded for MEP routing.||Mechanical team requested additional clearance at the service core.||Draft reviewed by the facilities consultant.">
+											<i class="fa-solid fa-message-square-dots mr-1"></i> Comments (3)
+										</button>
+									</td>
+									<td class="text-right">
+										<button class="btn-action-download download-row"><i class="fa-solid fa-download"></i></button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+
+				<div id="commentsOverlay" class="comments-overlay" hidden>
+					<div class="comments-backdrop" id="commentsBackdrop"></div>
+					<div class="comments-panel" role="dialog" aria-modal="true" aria-labelledby="commentsTitle">
+						<button class="modal-close" id="commentsClose" aria-label="Close">&times;</button>
+						<h3 id="commentsTitle">Comments</h3>
+						<div class="comments-version" id="commentsVersion"></div>
+						<ul class="comments-list" id="commentsList"></ul>
+					</div>
+				</div>
+				<div id="revisionModal" class="modal" aria-hidden="true" hidden>
+					<div class="modal-backdrop" id="modalBackdrop"></div>
+					<div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+						<button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+						<h2 id="modalTitle" class="text-lg font-bold mb-4 text-white"><i class="fa-solid fa-cloud-arrow-up mr-2 text-indigo-400"></i>Upload Revision Block</h2>
+						
+						<div class="modal-section mb-4 bg-[#0f1724] p-3 rounded-lg border border-[#1f293d]">
+							<div class="modal-row flex justify-between items-center text-sm">
+								<span class="text-gray-400">Target Segment Slot:</span>
+								<strong class="text-indigo-300">ARCH-01-FP (Main Floor Plan)</strong>
+							</div>
+							<div class="modal-row small mt-2 flex gap-4 text-xs text-gray-500">
+								<span>Current Base: <b id="detectedVersion" class="text-gray-300">v3.1</b></span>
+								<span>Auto-Increment Increment: <b id="targetVersion" class="text-emerald-400">v3.2</b></span>
+							</div>
+						</div>
+
+						<div class="modal-section mb-4">
+							<label class="file-drop-zone" id="fileDrop"> 
+								<input type="file" id="revisionFile" hidden required />
+								<div class="file-drop-inner py-6 text-center">
+									<i class="fa-solid fa-folder-open text-indigo-400 text-2xl mb-2"></i>
+									<p class="text-sm text-gray-300">Drag & drop revision blueprint file here</p>
+									<span class="text-xs text-gray-500">or click to browse filesystem</span>
+								</div>
+							</label>
+							<div id="fileList" class="file-list" aria-live="polite"></div>
+						</div>
+
+						<div class="modal-section mb-4">
+							<label for="changeDesc" class="block text-xs font-medium text-gray-400 mb-1">Change Description Log (Required for Audit Trail)</label>
+							<textarea id="changeDesc" rows="3" placeholder="Detail explicitly what parameters shifted in this revision variant..." required></textarea>
+						</div>
+
+						<div class="modal-section mb-6 grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#0c1220] p-3 rounded-lg border border-[#1f293d]">
+							<div>
+								<span class="block text-[11px] uppercase tracking-wider text-gray-500 font-bold mb-2">Document Pipeline Status</span>
+								<label class="flex items-center gap-2 text-xs text-gray-300 cursor-pointer mb-1">
+									<input type="radio" name="docStatus" value="Under Review" checked class="accent-indigo-550"/> Under Review
+								</label>
+								<label class="flex items-center gap-2 text-xs text-gray-300 cursor-pointer">
+									<input type="radio" name="docStatus" value="Draft" class="accent-indigo-550"/> Local Draft / Working Sandbox
+								</label>
+							</div>
+							<div>
+								<span class="block text-[11px] uppercase tracking-wider text-gray-500 font-bold mb-2">Gatekeeper Notification List</span>
+								<div class="grid grid-cols-1 gap-1 text-xs text-gray-300">
+									<label class="flex items-center gap-1.5"><input type="checkbox" class="perm accent-indigo-500" value="Structural" checked/> Structural Engr.</label>
+									<label class="flex items-center gap-1.5"><input type="checkbox" class="perm accent-indigo-500" value="Mechanical" checked/> Mechanical Engr.</label>
+									<label class="flex items-center gap-1.5"><input type="checkbox" class="perm accent-indigo-500" value="Client"/> Client View-Only</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="modal-actions border-t border-[#1f293d] pt-3 flex justify-end gap-2">
+							<button class="btn-cancel" id="modalCancel">Dismiss</button>
+							<button class="btn btn-primary" id="commitRevision">Commit Revision to DB</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<script>
+		function toggleSidebar() {
+			document.body.classList.toggle('sidebar-collapsed');
+			const toggleIcon = document.querySelector('.sidebar-toggle i');
+			if (document.body.classList.contains('sidebar-collapsed')) {
+				toggleIcon.classList.remove('fa-chevron-left');
+				toggleIcon.classList.add('fa-chevron-right');
+			} else {
+				toggleIcon.classList.remove('fa-chevron-right');
+				toggleIcon.classList.add('fa-chevron-left');
+			}
+		}
+
+		document.getElementById('downloadLatest').addEventListener('click', () => alert('Downloading latest revision block (v3.1)...'));
+		document.getElementById('manageAccess').addEventListener('click', () => window.location.href = 'consultants.html');
+		document.querySelectorAll('.download-row').forEach(btn => btn.addEventListener('click', () => alert('Downloading requested archive tier item...')));
+
+		const commentsOverlay = document.getElementById('commentsOverlay');
+		const commentsBackdrop = document.getElementById('commentsBackdrop');
+		const commentsClose = document.getElementById('commentsClose');
+		const commentsTitle = document.getElementById('commentsTitle');
+		const commentsVersion = document.getElementById('commentsVersion');
+		const commentsList = document.getElementById('commentsList');
+
+		function openComments(button) {
+			const version = button.dataset.version || 'Latest Blueprint';
+			const rawComments = (button.dataset.comments || 'No comment entries recorded.').split('||');
+			commentsTitle.textContent = `${version} Design Notes`;
+			commentsVersion.textContent = `Audit records accompanying revision build execution ${version}`;
+			commentsList.innerHTML = rawComments.filter(Boolean).map(comment => `<li>${escapeHtml(comment.trim())}</li>`).join('');
+			commentsOverlay.hidden = false;
+			commentsOverlay.removeAttribute('aria-hidden');
+		}
+
+		function closeComments() {
+			commentsOverlay.hidden = true;
+			commentsOverlay.setAttribute('aria-hidden', 'true');
+		}
+
+		document.querySelectorAll('.comments-btn').forEach(btn => btn.addEventListener('click', () => openComments(btn)));
+		commentsClose.addEventListener('click', closeComments);
+		commentsBackdrop.addEventListener('click', closeComments);
+
+		const uploadBtn = document.getElementById('uploadRevision');
+		const modal = document.getElementById('revisionModal');
+		const modalClose = document.getElementById('modalClose');
+		const modalCancel = document.getElementById('modalCancel');
+		const fileInput = document.getElementById('revisionFile');
+		const fileDrop = document.getElementById('fileDrop');
+		const fileList = document.getElementById('fileList');
+		const changeDesc = document.getElementById('changeDesc');
+		const commitBtn = document.getElementById('commitRevision');
+		const detectedVersionEl = document.getElementById('detectedVersion');
+		const targetVersionEl = document.getElementById('targetVersion');
+
+		function openModal() {
+			modal.hidden = false;
+			modal.removeAttribute('aria-hidden');
+			const firstVersion = document.querySelector('.premium-table tbody tr td .version-badge');
+			let base = 'v1.0';
+			if (firstVersion) base = firstVersion.textContent.trim();
+			detectedVersionEl.textContent = base;
+			
+			const parts = base.replace(/^v/, '').split('.').map(Number);
+			if (parts.length === 2) {
+				parts[1] = parts[1] + 1;
+				targetVersionEl.textContent = 'v' + parts.join('.');
+			} else {
+				targetVersionEl.textContent = base + '.1';
+			}
+		}
+
+		function closeModal() {
+			modal.hidden = true;
+			modal.setAttribute('aria-hidden', 'true');
+			fileList.innerHTML = '';
+			fileInput.value = '';
+			changeDesc.value = '';
+		}
+
+		uploadBtn.addEventListener('click', openModal);
+		modalClose.addEventListener('click', closeModal);
+		modalCancel.addEventListener('click', closeModal);
+		fileDrop.addEventListener('click', () => fileInput.click());
+
+		fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+		['dragenter','dragover'].forEach(ev => fileDrop.addEventListener(ev, (e)=>{ e.preventDefault(); e.stopPropagation(); fileDrop.classList.add('dragover'); }));
+		['dragleave','drop'].forEach(ev => fileDrop.addEventListener(ev, (e)=>{ e.preventDefault(); e.stopPropagation(); fileDrop.classList.remove('dragover'); }));
+		fileDrop.addEventListener('drop', (e) => {
+			const dt = e.dataTransfer;
+			if (dt && dt.files && dt.files.length) handleFiles(dt.files);
+		});
+
+		function handleFiles(files) {
+			const f = files[0];
+			if (!f) return;
+			fileList.innerHTML = '';
+			const item = document.createElement('div');
+			item.className = 'mt-2 p-2 bg-indigo-950/40 rounded border border-indigo-900 flex justify-between items-center text-xs';
+			item.innerHTML = `<div><i class="fa-solid fa-file-circle-check text-emerald-400 mr-2"></i>${f.name} <small class="text-gray-500">(${Math.round(f.size/1024)} KB)</small></div><button class="text-red-400 hover:underline" data-remove>Clear</button>`;
+			fileList.appendChild(item);
+			item.querySelector('[data-remove]').addEventListener('click', () => { fileList.innerHTML = ''; fileInput.value = ''; });
+			try {
+				const dt = new DataTransfer();
+				dt.items.add(f);
+				fileInput.files = dt.files;
+			} catch (err) {
+				console.warn(err);
+			}
+		}
+
+		commitBtn.addEventListener('click', () => {
+			if (!fileInput.files || !fileInput.files.length) { fileInput.setCustomValidity('Please select a structural modification file.'); } else { fileInput.setCustomValidity(''); }
+			if (!changeDesc.value.trim()) { changeDesc.setCustomValidity('Log specification payload missing.'); } else { changeDesc.setCustomValidity(''); }
+			
+			if (!fileInput.checkValidity()) { fileInput.reportValidity(); return; }
+			if (!changeDesc.checkValidity()) { changeDesc.reportValidity(); return; }
+
+			const newVersion = targetVersionEl.textContent.trim();
+			const ts = new Date().toLocaleString();
+			const tbody = document.querySelector('.premium-table tbody');
+			const tr = document.createElement('tr');
+			tr.className = "interactive-row";
+			tr.innerHTML = `
+				<td><span class="version-badge font-bold">${newVersion}</span></td>
+				<td class="text-gray-400"><i class="fa-regular fa-clock text-xs mr-1 text-gray-500"></i> ${ts}</td>
+				<td class="font-medium text-slate-300">You</td>
+				<td class="log-text">${escapeHtml(changeDesc.value)}</td>
+				<td class="text-center"><button class="btn-comment"><i class="fa-solid fa-message-square-dots mr-1"></i> Comments (0)</button></td>
+				<td class="text-right"><button class="btn-action-download download-row"><i class="fa-solid fa-download"></i></button></td>
+			`;
+			tbody.insertBefore(tr, tbody.firstChild);
+			closeModal();
+			alert('Revision tier committed to sequence data arrays successfully.');
+		});
+
+		function escapeHtml(s) { return s.replace(/[&<>"']/g, (c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+	</script>
+</body>
+</html>

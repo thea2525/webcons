@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Blueprints - WEBCON</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="projects.css">
+	<link rel="stylesheet" href="blueprints.css">
+</head>
+<body>
+	<div class="app-shell" id="appShell">
+		<aside class="sidebar" id="sidebar">
+			<div class="sidebar-top">
+				<div class="brand">
+					<div class="brand-icon"><i class="fa-solid fa-building-columns"></i></div>
+					<div class="brand-copy">
+						<p class="brand-name">WEBCON</p>
+						<p class="brand-subtitle">Blueprint Version Control</p>
+					</div>
+				</div>
+				<button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+					<i class="fa-solid fa-chevron-left"></i>
+				</button>
+			</div>
+
+			<nav class="sidebar-nav">
+				<a class="nav-item" href="projects.html"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
+				<a class="nav-item active" href="blueprints.html"><i class="fa-solid fa-map"></i><span>Blueprints</span></a>
+				<a class="nav-item" href="revisions.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Revisions</span></a>
+				<a class="nav-item" href="consultants.html"><i class="fa-solid fa-users"></i><span>Consultants</span></a>
+			</nav>
+		</aside>
+
+		<main class="main-content">
+			<div class="bp-container">
+
+				<div id="addBlueprintModal" class="modal" aria-hidden="true" hidden>
+					<div class="modal-backdrop" id="addBlueprintBackdrop"></div>
+					<div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="addBlueprintTitle">
+						<button class="modal-close" id="addBlueprintClose" aria-label="Close">&times;</button>
+						<h2 id="addBlueprintTitle">Add Blueprint</h2>
+						<div class="modal-section">
+							<label for="blueprintProject">Project</label>
+							<select id="blueprintProject" style="width:100%; padding:0.5rem; border-radius:0.35rem; background:#0f1724; border:1px solid rgba(255,255,255,0.04); color:#d1d5db;" required>
+								<option value="">Select Project</option>
+								<option value="Quiet Times by the Riverbank">Quiet Times by the Riverbank</option>
+								<option value="Court of Justice's Artistry">Court of Justice's Artistry</option>
+							</select>
+						</div>
+						<div class="modal-section">
+							<label for="blueprintCategory">Category</label>
+							<select id="blueprintCategory" style="width:100%; padding:0.5rem; border-radius:0.35rem; background:#0f1724; border:1px solid rgba(255,255,255,0.04); color:#d1d5db;" required>
+								<option value="">Select Category</option>
+								<option value="General & Information Sheets">General & Information Sheets</option>
+								<option value="Architectural Plans">Architectural Plans (A-Series)</option>
+								<option value="Landscape">Landscape (Trees, exterior pavements, retaining walls)</option>
+							</select>
+						</div>
+						<div class="modal-section">
+							<label for="blueprintName">Blueprint Name</label>
+							<input type="text" id="blueprintName" placeholder="" style="width:100%; padding:0.5rem; border-radius:0.35rem; background:#0f1724; border:1px solid rgba(255,255,255,0.04); color:#d1d5db;" required />
+						</div>
+						<div class="modal-actions">
+							<button id="addBlueprintCancel" class="action-btn">Cancel</button>
+							<button id="addBlueprintSubmit" class="action-btn primary">Add Blueprint</button>
+						</div>
+					</div>
+				</div>
+
+				<section class="search-section">
+					<h3 class="search-title">Search</h3>
+					<div class="search-row">
+						<input type="text" id="searchInput" class="search-input" placeholder="Search Blueprint, Project, Category...">
+						<button class="search-btn">Search</button>
+						<button class="reset-btn">Reset</button>
+					</div>
+				</section>
+
+				<section class="filter-section">
+					<h3 class="filter-title">Filter Blueprints</h3>
+					<div class="filter-row">
+						<select id="projectFilter" class="filter-select">
+							<option value="">All Projects</option>
+							<option value="Quiet Times by the Riverbank">Quiet Times by the Riverbank</option>
+							<option value="Court of Justice's Artistry">Court of Justice's Artistry</option>
+						</select>
+						<select id="categoryFilter" class="filter-select">
+							<option value="">All Categories</option>
+							<option value="Architectural Plans">Architectural Plans (A-Series)</option>
+							<option value="Landscape">Landscape (Trees, exterior pavements, retaining walls)</option>
+						</select>
+						<button id="applyFilterBtn" class="filter-apply-btn">Apply Filter</button>
+						<button id="resetFilterBtn" class="filter-reset-btn">Reset</button>
+					</div>
+				</section>
+
+				<section class="blueprint-list-section">
+					<div class="list-header-row">
+						<h3 class="list-title">Blueprint List</h3>
+						<div class="flex gap-2">
+							<button id="openCategoryModalBtn" class="action-btn">
+								<i class="fa-solid fa-tags"></i>
+								<span>Categories</span>
+							</button>
+							<button id="addBlueprintBtn" class="action-btn upload-projects-btn">
+								<i class="fa-solid fa-plus"></i>
+								<span>Add Blueprint</span>
+							</button>
+						</div>
+					</div>
+					<div class="table-scroll">
+						<table class="blueprint-table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Project</th>
+									<th>Category</th>
+									<th>Blueprint Name</th>
+									<th class="action-col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Quiet Times by the Riverbank</td>
+									<td>Architectural Plans (A-Series)</td>
+									<td>Deepwood Dweller Lones</td>
+									<td class="action-col">
+										<a href="#" class="action-link edit-link">Edit</a> 
+										<a href="#" class="action-link delete-link">Delete</a>
+										<a href="#" class="action-link download-link" data-file="Deepwood Dweller Lones"><i class="fa-solid fa-download"></i> Download</a>
+										<a href="#" class="action-link feedback-link" data-file="Deepwood Dweller Lones"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+									</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Quiet Times by the Riverbank</td>
+									<td>Architectural Plans (A-Series)</td>
+									<td>Fabric of the City of Wisdom</td>
+									<td class="action-col">
+										<a href="#" class="action-link edit-link">Edit</a> 
+										<a href="#" class="action-link delete-link">Delete</a>
+										<a href="#" class="action-link download-link" data-file="Fabric of the City of Wisdom"><i class="fa-solid fa-download"></i> Download</a>
+										<a href="#" class="action-link feedback-link" data-file="Fabric of the City of Wisdom"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+									</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>Quiet Times by the Riverbank</td>
+									<td>Architectural Plans (A-Series)</td>
+									<td>Dripping Verdant Light</td>
+									<td class="action-col">
+										<a href="#" class="action-link edit-link">Edit</a> 
+										<a href="#" class="action-link delete-link">Delete</a>
+										<a href="#" class="action-link download-link" data-file="Dripping Verdant Light"><i class="fa-solid fa-download"></i> Download</a>
+										<a href="#" class="action-link feedback-link" data-file="Dripping Verdant Light"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+									</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>Quiet Times by the Riverbank</td>
+									<td>Landscape (Trees, exterior pavements, retaining walls)</td>
+									<td>Flaming Catalyst</td>
+									<td class="action-col">
+										<a href="#" class="action-link edit-link">Edit</a> 
+										<a href="#" class="action-link delete-link">Delete</a>
+										<a href="#" class="action-link download-link" data-file="Flaming Catalyst"><i class="fa-solid fa-download"></i> Download</a>
+										<a href="#" class="action-link feedback-link" data-file="Flaming Catalyst"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+									</td>
+								</tr>
+								<tr>
+									<td>7</td>
+									<td>Court of Justice's Artistry</td>
+									<td>Architectural Plans (A-Series)</td>
+									<td>Linden Wood Half-Metal Announcement Board</td>
+									<td class="action-col">
+										<a href="#" class="action-link edit-link">Edit</a> 
+										<a href="#" class="action-link delete-link">Delete</a>
+										<a href="#" class="action-link download-link" data-file="Linden Wood Half-Metal Announcement Board"><i class="fa-solid fa-download"></i> Download</a>
+										<a href="#" class="action-link feedback-link" data-file="Linden Wood Half-Metal Announcement Board"><i class="fa-solid fa-comment-dots"></i> Feedback</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+			</div>
+		</main>
+	</div>
+
+	<div id="feedbackOverlay" class="comments-overlay" hidden>
+		<div class="comments-backdrop" id="feedbackBackdrop"></div>
+		<div class="comments-panel feedback-panel" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+			<button class="modal-close" id="feedbackClose" aria-label="Close">&times;</button>
+			<h3 id="feedbackTitle">Feedback</h3>
+			<div class="comments-version" id="feedbackFile"></div>
+			<ul class="comments-list" id="feedbackList"></ul>
+		</div>
+	</div>
+
+	<div id="categoryModal" class="modal" aria-hidden="true" hidden>
+		<div class="modal-backdrop" id="categoryModalBackdrop"></div>
+		<div class="modal-panel !max-w-[720px] flex flex-col max-h-[90vh]" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
+			<button class="modal-close" id="categoryModalClose" aria-label="Close">&times;</button>
+			<h2 id="categoryModalTitle" class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-tags mr-2 text-indigo-400"></i>Category Workspace</h2>
+			
+			<div class="overflow-y-auto pr-1 custom-scrollbar">
+				<div class="modal-section mb-5 bg-[#0f1724] p-4 border border-[#1f293d] rounded-lg">
+					<h3 class="text-sm font-semibold text-white mb-3">Add Category</h3>
+					<div class="flex gap-2 items-end">
+						<div class="flex-1">
+							<label for="newCategoryName" class="block text-xs font-medium text-gray-400 mb-1">Category Name</label>
+							<input type="text" id="newCategoryName" placeholder="Enter custom category label..." style="width:100%; padding:0.55rem; border-radius:0.45rem; background:#0b1221; border:1px solid #1f293d; color:#d1d5db;">
+						</div>
+						<button id="addCategorySubmitBtn" class="action-btn primary !py-[0.58rem]">Add Category</button>
+					</div>
+				</div>
+
+				<div class="modal-section mb-5">
+					<h3 class="text-sm font-semibold text-white mb-2">Search Category</h3>
+					<div class="flex gap-2">
+						<input type="text" id="searchCategoryInput" placeholder="Search Category Name..." style="flex:1; padding:0.55rem; border-radius:0.45rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+						<button id="searchCategoryBtn" class="search-btn !py-2 !px-4 text-sm">Search</button>
+						<button id="resetCategorySearchBtn" class="reset-btn !py-2 !px-4 text-sm">Reset</button>
+					</div>
+				</div>
+
+				<div class="modal-section">
+					<h3 class="text-sm font-semibold text-white mb-2">Category List</h3>
+					<div class="table-scroll border border-[#1f293d] rounded-lg overflow-hidden">
+						<table class="blueprint-table !text-xs">
+							<thead>
+								<tr class="bg-[#0f1724]">
+									<th class="w-16">ID <i class="fa-solid fa-sort-up text-[10px] ml-1"></i><i class="fa-solid fa-sort-down text-[10px]"></i></th>
+									<th>Category Name <i class="fa-solid fa-sort-up text-[10px] ml-1"></i><i class="fa-solid fa-sort-down text-[10px]"></i></th>
+									<th class="action-col w-28">Action</th>
+								</tr>
+							</thead>
+							<tbody id="categoryTableBody">
+								<tr><td>1</td><td class="cat-name">General & Information Sheets</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td></tr>
+								<tr><td>2</td><td class="cat-name">Civil & Site Plans (C-Series)</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td></tr>
+								<tr><td>3</td><td class="cat-name">Architectural Plans (A-Series)</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td></tr>
+								<tr><td>4</td><td class="cat-name">Structural Drawings (S-Series)</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td></tr>
+								<tr><td>5</td><td class="cat-name">Plumbing (Water distribution, wastewater drainage lines)</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td></tr>
+								<tr><td>6</td><td class="cat-name">Specialized & Supplementary</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td></tr>
+								<tr><td>7</td><td class="cat-name">Landscape (Trees, exterior pavements, retaining walls)</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td></tr>
+								<tr><td>8</td><td class="cat-name">Mechanical (HVAC ducting, air conditioning systems)</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td></tr>
+								<tr><td>9</td><td class="cat-name">Electrical (Breaker panels, power conduits, outlets)</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td></tr>
+								<tr><td>10</td><td class="cat-name">Fire Protection (F)</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td></tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function toggleSidebar() {
+			document.body.classList.toggle('sidebar-collapsed');
+			const toggleIcon = document.querySelector('.sidebar-toggle i');
+			if (document.body.classList.contains('sidebar-collapsed')) {
+				toggleIcon.classList.remove('fa-chevron-left');
+				toggleIcon.classList.add('fa-chevron-right');
+			} else {
+				toggleIcon.classList.remove('fa-chevron-right');
+				toggleIcon.classList.add('fa-chevron-left');
+			}
+		}
+
+		const addBlueprintBtn = document.getElementById('addBlueprintBtn');
+		const addBlueprintModal = document.getElementById('addBlueprintModal');
+		const addBlueprintClose = document.getElementById('addBlueprintClose');
+		const addBlueprintCancel = document.getElementById('addBlueprintCancel');
+		const addBlueprintBackdrop = document.getElementById('addBlueprintBackdrop');
+		const blueprintProject = document.getElementById('blueprintProject');
+		const blueprintCategory = document.getElementById('blueprintCategory');
+		const blueprintName = document.getElementById('blueprintName');
+		const addBlueprintSubmit = document.getElementById('addBlueprintSubmit');
+
+		addBlueprintBtn.addEventListener('click', () => {
+			addBlueprintModal.hidden = false;
+			addBlueprintModal.removeAttribute('aria-hidden');
+		});
+
+		function closeAddBlueprintModal() {
+			addBlueprintModal.hidden = true;
+			addBlueprintModal.setAttribute('aria-hidden', 'true');
+			blueprintProject.value = '';
+			blueprintCategory.value = '';
+			blueprintName.value = '';
+		}
+
+		addBlueprintClose.addEventListener('click', closeAddBlueprintModal);
+		addBlueprintCancel.addEventListener('click', closeAddBlueprintModal);
+		addBlueprintBackdrop.addEventListener('click', closeAddBlueprintModal);
+
+		addBlueprintSubmit.addEventListener('click', () => {
+			if (!blueprintProject.value.trim()) {
+				alert('Please select a project.');
+				return;
+			}
+			if (!blueprintCategory.value.trim()) {
+				alert('Please select a category.');
+				return;
+			}
+			if (!blueprintName.value.trim()) {
+				alert('Please enter a blueprint name.');
+				return;
+			}
+			alert(`Blueprint added: ${blueprintName.value}`);
+			closeAddBlueprintModal();
+		});
+
+		document.querySelector('.search-btn').addEventListener('click', () => {
+			const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+			filterTable(searchTerm, '', '');
+		});
+
+		document.querySelector('.reset-btn').addEventListener('click', () => {
+			document.getElementById('searchInput').value = '';
+			filterTable('', '', '');
+		});
+
+		document.getElementById('applyFilterBtn').addEventListener('click', () => {
+			const projectFilter = document.getElementById('projectFilter').value.toLowerCase();
+			const categoryFilter = document.getElementById('categoryFilter').value.toLowerCase();
+			const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+			filterTable(searchTerm, projectFilter, categoryFilter);
+		});
+
+		document.getElementById('resetFilterBtn').addEventListener('click', () => {
+			document.getElementById('projectFilter').value = '';
+			document.getElementById('categoryFilter').value = '';
+			document.getElementById('searchInput').value = '';
+			filterTable('', '', '');
+		});
+
+		function filterTable(searchTerm, projectFilter, categoryFilter) {
+			const rows = document.querySelectorAll('.blueprint-table tbody tr');
+			rows.forEach(row => {
+				const id = row.cells[0] ? row.cells[0].textContent.toLowerCase() : '';
+				const project = row.cells[1] ? row.cells[1].textContent.toLowerCase() : '';
+				const category = row.cells[2] ? row.cells[2].textContent.toLowerCase() : '';
+				const name = row.cells[3] ? row.cells[3].textContent.toLowerCase() : '';
+
+				const matchesSearch = !searchTerm || id.includes(searchTerm) || project.includes(searchTerm) || category.includes(searchTerm) || name.includes(searchTerm);
+				const matchesProject = !projectFilter || project.includes(projectFilter);
+				const matchesCategory = !categoryFilter || category.includes(categoryFilter);
+
+				if(row.closest('#categoryTableBody')) return; // skip category workspace rows
+				row.style.display = (matchesSearch && matchesProject && matchesCategory) ? '' : 'none';
+			});
+		}
+
+		document.querySelectorAll('.edit-link, .delete-link').forEach(link => {
+			link.addEventListener('click', (e) => {
+				e.preventDefault();
+				const action = link.textContent;
+				const row = link.closest('tr');
+				const name = row.cells[3] ? row.cells[3].textContent : row.cells[1].textContent;
+				alert(`${action} action for: ${name}`);
+			});
+		});
+
+		document.querySelectorAll('.download-link').forEach(link => {
+			link.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert(`Downloading file: ${link.dataset.file}...`);
+			});
+		});
+
+		const feedbackOverlay = document.getElementById('feedbackOverlay');
+		const feedbackBackdrop = document.getElementById('feedbackBackdrop');
+		const feedbackClose = document.getElementById('feedbackClose');
+		const feedbackTitle = document.getElementById('feedbackTitle');
+		const feedbackFile = document.getElementById('feedbackFile');
+		const feedbackList = document.getElementById('feedbackList');
+
+		function openFeedback(file) {
+			if (feedbackTitle) feedbackTitle.textContent = `${file} Feedback`;
+			if (feedbackFile) feedbackFile.textContent = `Viewing feedback for ${file}`;
+			
+			const sampleFeedback = [
+				'Column dimensions need adjustment per structural requirements.',
+				'Please review clearance for MEP systems in north wing.',
+				'Client requested revision to lobby entrance details.'
+			];
+			
+			if (feedbackList) {
+				feedbackList.innerHTML = sampleFeedback.map(msg => `<li>${msg}</li>`).join('');
+			}
+			feedbackOverlay.hidden = false;
+			feedbackOverlay.removeAttribute('aria-hidden');
+		}
+
+		function closeFeedback() {
+			feedbackOverlay.hidden = true;
+			feedbackOverlay.setAttribute('aria-hidden', 'true');
+		}
+
+		document.querySelectorAll('.feedback-link').forEach(link => {
+			link.addEventListener('click', (e) => {
+				e.preventDefault();
+				openFeedback(link.dataset.file);
+			});
+		});
+
+		if (feedbackClose) feedbackClose.addEventListener('click', closeFeedback);
+		if (feedbackBackdrop) feedbackBackdrop.addEventListener('click', closeFeedback);
+
+		const openCategoryModalBtn = document.getElementById('openCategoryModalBtn');
+		const categoryModal = document.getElementById('categoryModal');
+		const categoryModalClose = document.getElementById('categoryModalClose');
+		const categoryModalBackdrop = document.getElementById('categoryModalBackdrop');
+
+		function openCategoryModal() {
+			categoryModal.hidden = false;
+			categoryModal.removeAttribute('aria-hidden');
+		}
+
+		function closeCategoryModal() {
+			categoryModal.hidden = true;
+			categoryModal.setAttribute('aria-hidden', 'true');
+			document.getElementById('newCategoryName').value = '';
+			document.getElementById('searchCategoryInput').value = '';
+			filterCategoriesTable('');
+		}
+
+		openCategoryModalBtn.addEventListener('click', openCategoryModal);
+		categoryModalClose.addEventListener('click', closeCategoryModal);
+		categoryModalBackdrop.addEventListener('click', closeCategoryModal);
+
+		document.getElementById('addCategorySubmitBtn').addEventListener('click', () => {
+			const input = document.getElementById('newCategoryName');
+			const name = input.value.trim();
+			if (!name) {
+				alert('Category Name field cannot be left blank.');
+				return;
+			}
+			
+			const tbody = document.getElementById('categoryTableBody');
+			const nextId = tbody.rows.length + 1;
+			
+			const tr = document.createElement('tr');
+			tr.innerHTML = `<td>${nextId}</td><td class="cat-name">${name}</td><td class="action-col"><a href="#" class="action-link edit-link">Edit</a> | <a href="#" class="action-link delete-link">Delete</a></td>`;
+			
+			tr.querySelectorAll('.edit-link, .delete-link').forEach(link => {
+				link.addEventListener('click', (e) => {
+					e.preventDefault();
+					alert(`${link.textContent} action for category item: ${name}`);
+				});
+			});
+
+			tbody.appendChild(tr);
+			alert(`Category "${name}" successfully compiled and listed.`);
+			input.value = '';
+		});
+
+		function filterCategoriesTable(keyword) {
+			const rows = document.querySelectorAll('#categoryTableBody tr');
+			rows.forEach(row => {
+				const catName = row.querySelector('.cat-name').textContent.toLowerCase();
+				row.style.display = catName.includes(keyword.toLowerCase()) ? '' : 'none';
+			});
+		}
+
+		document.getElementById('searchCategoryBtn').addEventListener('click', () => {
+			const val = document.getElementById('searchCategoryInput').value;
+			filterCategoriesTable(val);
+		});
+
+		document.getElementById('resetCategorySearchBtn').addEventListener('click', () => {
+			document.getElementById('searchCategoryInput').value = '';
+			filterCategoriesTable('');
+		});
+	</script>
+</body>
+</html>

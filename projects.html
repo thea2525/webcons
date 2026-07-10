@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebCon - Blueprint Version Control</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Projects - WEBCON</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="projects.css">
 </head>
@@ -27,147 +25,89 @@
             </div>
 
             <nav class="sidebar-nav">
-                <button class="nav-item active"><i class="fa-solid fa-folder"></i><span>Projects</span></button>
-                <button class="nav-item"><i class="fa-solid fa-map"></i><span>Blueprints</span></button>
-                <button class="nav-item"><i class="fa-solid fa-users"></i><span>Consultants</span></button>
-                <button class="nav-item"><i class="fa-solid fa-chart-line"></i><span>Progress Tracker</span></button>
-                <button class="nav-item notifications"><i class="fa-solid fa-bell"></i><span>Notifications</span><span class="badge">2</span></button>
+                <a class="nav-item active" href="projects.html"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
+                <a class="nav-item" href="blueprints.html"><i class="fa-solid fa-map"></i><span>Blueprints</span></a>
+                <a class="nav-item" href="revisions.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Revisions</span></a>
+                <a class="nav-item" href="consultants.html"><i class="fa-solid fa-users"></i><span>Consultants</span></a>
             </nav>
         </aside>
 
         <main class="main-content">
-            <div class="page-content">
-                <section class="panel project-summary">
-                    <div class="summary-inner">
-                        <div class="summary-icon">
-                            <i class="fa-solid fa-building"></i>
-                        </div>
-                        <div>
-                            <h2 class="project-title">Project: Eco-Tower Residential Phase 1</h2>
-                            <p class="project-meta">Timeline: May 2026 - October 2026 | Status: <span class="project-status">● ACTIVE</span></p>
-                        </div>
+            <div class="bp-container">
+                
+                <section class="search-section">
+                    <h3 class="search-title">Search Projects</h3>
+                    <div class="search-row">
+                        <input type="text" id="projectSearchInput" class="search-input" placeholder="Search Project or Client...">
+                        <button class="search-btn"><i class="fa-solid fa-magnifying-glass mr-1"></i> Search</button>
+                        <button class="reset-btn">Reset</button>
                     </div>
                 </section>
 
-                <section class="stat-grid">
-                    <article class="stat-card stat-total">
-                        <div class="stat-icon"><i class="fa-solid fa-file-invoice"></i></div>
-                        <div>
-                            <div class="stat-label">Total Blueprints</div>
-                            <div class="stat-value">14</div>
+                <section class="blueprint-list-section">
+                    <div class="list-header-row">
+                        <h3 class="list-title">Project List</h3>
+                        <div class="flex gap-2">
+                            <button id="openFilterModalBtn" class="action-btn">
+                                <i class="fa-solid fa-filter"></i>
+                                <span>Filter Projects</span>
+                            </button>
+                            <button id="openUploadModalBtn" class="action-btn primary upload-projects-btn">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Add Project</span>
+                            </button>
                         </div>
-                    </article>
-                    <article class="stat-card stat-review">
-                        <div class="stat-icon"><i class="fa-regular fa-clock"></i></div>
-                        <div>
-                            <div class="stat-label">Under Review</div>
-                            <div class="stat-value">3</div>
-                        </div>
-                    </article>
-                    <article class="stat-card stat-approved">
-                        <div class="stat-icon"><i class="fa-regular fa-circle-check"></i></div>
-                        <div>
-                            <div class="stat-label">Approved</div>
-                            <div class="stat-value">9</div>
-                        </div>
-                    </article>
-                    <article class="stat-card stat-superseded">
-                        <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
-                        <div>
-                            <div class="stat-label">Superseded</div>
-                            <div class="stat-value">28</div>
-                        </div>
-                    </article>
-                </section>
-
-                <section class="filters-row">
-                    <div class="filters-caption">Filter by Discipline:</div>
-                    <div class="filter-group">
-                        <button class="filter-pill active">All</button>
-                        <button class="filter-pill">Structural</button>
-                        <button class="filter-pill">Mechanical</button>
-                        <button class="filter-pill">Electrical</button>
-                        <button class="filter-pill">Plumbing</button>
                     </div>
-                    <button onclick="openModal()" class="primary-button">
-                        <i class="fa-solid fa-plus"></i>
-                        <span>Upload New Drawing</span>
-                    </button>
-                </section>
 
-                <section class="panel table-panel">
-                    <div class="table-header">
-                        <h3>Central Repository</h3>
-                    </div>
                     <div class="table-scroll">
-                        <table class="repo-table">
+                        <table class="blueprint-table">
                             <thead>
                                 <tr>
-                                    <th>File Name</th>
-                                    <th>Discipline</th>
-                                    <th>Version</th>
-                                    <th>Modified By</th>
-                                    <th>Last Revision Date</th>
-                                    <th>Status</th>
+                                    <th>ID <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
+                                    <th>Project <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
+                                    <th>Client <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
+                                    <th>Start <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
+                                    <th>End <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
+                                    <th>Status <i class="fa-solid fa-sort-up text-xs ml-1"></i><i class="fa-solid fa-sort-down text-xs"></i></th>
                                     <th class="action-col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr onclick="navigateToTab('blueprints')">
-                                    <td>
-                                        <div class="file-cell">
-                                            <span class="file-icon"><i class="fa-solid fa-folder"></i></span>
-                                            <span>ARCH-01-FP</span>
-                                        </div>
+                                <tr>
+                                    <td>3</td>
+                                    <td class="font-semibold text-white">Court of Justice's Artistry</td>
+                                    <td>Neuvillette</td>
+                                    <td>2026-07-01</td>
+                                    <td>2026-08-21</td>
+                                    <td><span class="status-pill status-review">PENDING</span></td>
+                                    <td class="action-col">
+                                        <a href="#" class="action-link edit-link">Edit</a> | 
+                                        <a href="#" class="action-link delete-link">Delete</a>
                                     </td>
-                                    <td><span class="pill structural-pill">Structural</span></td>
-                                    <td>v3.1</td>
-                                    <td>A. Castaneda</td>
-                                    <td>May 18, 2026 14:22</td>
-                                    <td><span class="status-pill status-approved">APPROVED</span></td>
-                                    <td class="action-col"><i class="fa-solid fa-ellipsis-vertical action-icon"></i></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="file-cell">
-                                            <span class="file-icon"><i class="fa-solid fa-folder"></i></span>
-                                            <span>MECH-02-HVAC</span>
-                                        </div>
+                                    <td>7</td>
+                                    <td class="font-semibold text-white">Quiet Times by the Riverbank</td>
+                                    <td>Kunikuzushi</td>
+                                    <td>2026-06-06</td>
+                                    <td>2026-07-06</td>
+                                    <td><span class="status-pill status-approved">ONGOING</span></td>
+                                    <td class="action-col">
+                                        <a href="#" class="action-link edit-link">Edit</a> | 
+                                        <a href="#" class="action-link delete-link">Delete</a>
                                     </td>
-                                    <td><span class="pill mechanical-pill">Mechanical</span></td>
-                                    <td>v2.0</td>
-                                    <td>Z. Pangan</td>
-                                    <td>May 19, 2026 09:15</td>
-                                    <td><span class="status-pill status-review">UNDER REVIEW</span></td>
-                                    <td class="action-col"><i class="fa-solid fa-ellipsis-vertical action-icon"></i></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="file-cell">
-                                            <span class="file-icon"><i class="fa-solid fa-folder"></i></span>
-                                            <span>ELEC-01-GRD</span>
-                                        </div>
+                                    <td>8</td>
+                                    <td class="font-semibold text-white">Solitary Light in the Long Night</td>
+                                    <td>Kyryll Flins</td>
+                                    <td>2026-07-31</td>
+                                    <td>2026-09-01</td>
+                                    <td><span class="status-pill status-review">PENDING</span></td>
+                                    <td class="action-col">
+                                        <a href="#" class="action-link edit-link">Edit</a> | 
+                                        <a href="#" class="action-link delete-link">Delete</a>
                                     </td>
-                                    <td><span class="pill electrical-pill">Electrical</span></td>
-                                    <td>v1.4</td>
-                                    <td>Engr. Torres</td>
-                                    <td>May 15, 2026 11:02</td>
-                                    <td><span class="status-pill status-alert">REVISION REQ</span></td>
-                                    <td class="action-col"><i class="fa-solid fa-ellipsis-vertical action-icon"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="file-cell">
-                                            <span class="file-icon"><i class="fa-solid fa-folder"></i></span>
-                                            <span>PLUM-03-SAN</span>
-                                        </div>
-                                    </td>
-                                    <td><span class="pill plumbing-pill">Plumbing</span></td>
-                                    <td>v1.0</td>
-                                    <td>Engr. Ramos</td>
-                                    <td>May 10, 2026 16:45</td>
-                                    <td><span class="status-pill status-approved">APPROVED</span></td>
-                                    <td class="action-col"><i class="fa-solid fa-ellipsis-vertical action-icon"></i></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -175,6 +115,88 @@
                 </section>
             </div>
         </main>
+    </div>
+
+    <div id="filterProjectsModal" class="modal" aria-hidden="true" hidden>
+        <div class="modal-backdrop" id="filterModalBackdrop"></div>
+        <div class="modal-panel !max-w-[500px]" role="dialog" aria-modal="true" aria-labelledby="filterModalTitle">
+            <button class="modal-close" id="filterModalClose" aria-label="Close">&times;</button>
+            <h2 id="filterModalTitle" class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-filter mr-2 text-indigo-400"></i>Filter Projects</h2>
+            
+            <div class="modal-section mb-4">
+                <label for="filterClient" class="block text-sm font-medium text-gray-400 mb-1">Client:</label>
+                <input type="text" id="filterClient" placeholder="Enter client name" style="width:100%; padding:0.65rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+            </div>
+
+            <div class="modal-section mb-4">
+                <label for="filterStatus" class="block text-sm font-medium text-gray-400 mb-1">Status:</label>
+                <select id="filterStatus" style="width:100%; padding:0.65rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+                    <option value="">All Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+
+            <div class="modal-section mb-4">
+                <label class="block text-sm font-medium text-gray-400 mb-1">Start Date Range:</label>
+                <div class="flex gap-2">
+                    <input type="date" id="filterStartMin" style="width:50%; padding:0.5rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+                    <input type="date" id="filterStartMax" style="width:50%; padding:0.5rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+                </div>
+            </div>
+
+            <div class="modal-section mb-6">
+                <label class="block text-sm font-medium text-gray-400 mb-1">End Date Range:</label>
+                <div class="flex gap-2">
+                    <input type="date" id="filterEndMin" style="width:50%; padding:0.5rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+                    <input type="date" id="filterEndMax" style="width:50%; padding:0.5rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;">
+                </div>
+            </div>
+
+            <div class="modal-actions border-t border-[#1f293d] pt-4">
+                <button id="resetFilterBtn" class="filter-reset-btn !py-2 !px-4">Reset</button>
+                <button id="applyFilterBtn" class="filter-apply-btn !py-2 !px-4">Apply Filters</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="uploadProjectModal" class="modal" aria-hidden="true" hidden>
+        <div class="modal-backdrop" id="uploadModalBackdrop"></div>
+        <div class="modal-panel !max-w-[550px]" role="dialog" aria-modal="true" aria-labelledby="uploadModalTitle">
+            <button class="modal-close" id="uploadModalClose" aria-label="Close">&times;</button>
+            <h2 id="uploadModalTitle" class="text-xl font-bold mb-4 text-white">
+                <i class="fa-solid fa-cloud-arrow-up mr-2 text-indigo-400"></i>Add New Project
+            </h2>
+            
+            <div class="modal-section mb-4">
+                <label for="newProjectName" class="block text-sm font-medium text-gray-400 mb-1">Project Name *</label>
+                <input type="text" id="newProjectName" placeholder="Enter custom project designation..." style="width:100%; padding:0.65rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;" required>
+            </div>
+
+            <div class="modal-section mb-4">
+                <label for="newProjectClient" class="block text-sm font-medium text-gray-400 mb-1">Client Name *</label>
+                <input type="text" id="newProjectClient" placeholder="Enter client label..." style="width:100%; padding:0.65rem; border-radius:0.5rem; background:#0f1724; border:1px solid #1f293d; color:#d1d5db;" required>
+            </div>
+
+            <div class="modal-section mb-4">
+                <label class="block text-sm font-medium text-gray-400 mb-1">Attach Initial Project Files</label>
+                <label class="file-drop" id="projectFileDrop"> 
+                    <input type="file" id="projectFilesInput" multiple hidden />
+                    <div class="file-drop-inner py-4">
+                        <i class="fa-solid fa-folder-open fa-2x mb-2 text-indigo-400/60"></i><br/>
+                        Drag & drop structural/design files here<br/>
+                        <span class="text-xs text-gray-500">or click to scan local workspace</span>
+                    </div>
+                </label>
+                <div id="projectFileList" class="file-list max-h-[150px] overflow-y-auto custom-scrollbar mt-2" aria-live="polite"></div>
+            </div>
+
+            <div class="modal-actions border-t border-[#1f293d] pt-4">
+                <button id="uploadModalCancel" class="filter-reset-btn !py-2 !px-4">Cancel</button>
+                <button id="uploadModalSubmit" class="action-btn primary !py-2 !px-4">Commit Project</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -190,13 +212,116 @@
             }
         }
 
-        function openModal() {
-            alert('Upload functionality is not yet implemented.');
+        const openFilterModalBtn = document.getElementById('openFilterModalBtn');
+        const filterProjectsModal = document.getElementById('filterProjectsModal');
+        const filterModalClose = document.getElementById('filterModalClose');
+        const filterModalBackdrop = document.getElementById('filterModalBackdrop');
+        const resetFilterBtn = document.getElementById('resetFilterBtn');
+        const applyFilterBtn = document.getElementById('applyFilterBtn');
+
+        function openFilters() {
+            filterProjectsModal.hidden = false;
+            filterProjectsModal.removeAttribute('aria-hidden');
         }
 
-        function navigateToTab(tab) {
-            alert('Navigate to ' + tab + ' is not implemented yet.');
+        function closeFilters() {
+            filterProjectsModal.hidden = true;
+            filterProjectsModal.setAttribute('aria-hidden', 'true');
         }
+
+        openFilterModalBtn.addEventListener('click', openFilters);
+        filterModalClose.addEventListener('click', closeFilters);
+        filterModalBackdrop.addEventListener('click', closeFilters);
+
+        applyFilterBtn.addEventListener('click', () => { closeFilters(); });
+
+        resetFilterBtn.addEventListener('click', () => {
+            document.getElementById('filterClient').value = '';
+            document.getElementById('filterStatus').value = '';
+            document.getElementById('filterStartMin').value = '';
+            document.getElementById('filterStartMax').value = '';
+            document.getElementById('filterEndMin').value = '';
+            document.getElementById('filterEndMax').value = '';
+        });
+
+        const openUploadModalBtn = document.getElementById('openUploadModalBtn');
+        const uploadProjectModal = document.getElementById('uploadProjectModal');
+        const uploadModalClose = document.getElementById('uploadModalClose');
+        const uploadModalCancel = document.getElementById('uploadModalCancel');
+        const uploadModalBackdrop = document.getElementById('uploadModalBackdrop');
+        const projectFilesInput = document.getElementById('projectFilesInput');
+        const projectFileDrop = document.getElementById('projectFileDrop');
+        const projectFileList = document.getElementById('projectFileList');
+        const uploadModalSubmit = document.getElementById('uploadModalSubmit');
+
+        function openUploadModal() {
+            uploadProjectModal.hidden = false;
+            uploadProjectModal.removeAttribute('aria-hidden');
+        }
+
+        function closeUploadModal() {
+            uploadProjectModal.hidden = true;
+            uploadProjectModal.setAttribute('aria-hidden', 'true');
+            document.getElementById('newProjectName').value = '';
+            document.getElementById('newProjectClient').value = '';
+            projectFilesInput.value = '';
+            projectFileList.innerHTML = '';
+        }
+
+        openUploadModalBtn.addEventListener('click', openUploadModal);
+        uploadModalClose.addEventListener('click', closeUploadModal);
+        uploadModalCancel.addEventListener('click', closeUploadModal);
+        uploadModalBackdrop.addEventListener('click', closeUploadModal);
+
+        projectFileDrop.addEventListener('click', (e) => {
+            if (e.target !== projectFilesInput) projectFilesInput.click();
+        });
+
+        projectFilesInput.addEventListener('change', (e) => {
+            handleProjectFiles(e.target.files);
+        });
+
+        ['dragenter', 'dragover'].forEach(ev => projectFileDrop.addEventListener(ev, (e) => { 
+            e.preventDefault(); e.stopPropagation(); 
+            projectFileDrop.style.borderColor = '#4f46e5';
+            projectFileDrop.style.background = 'rgba(79, 70, 229, 0.04)';
+        }));
+        ['dragleave', 'drop'].forEach(ev => projectFileDrop.addEventListener(ev, (e) => { 
+            e.preventDefault(); e.stopPropagation(); 
+            projectFileDrop.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+            projectFileDrop.style.background = 'transparent';
+        }));
+        projectFileDrop.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            if (dt && dt.files && dt.files.length) {
+                projectFilesInput.files = dt.files;
+                handleProjectFiles(dt.files);
+            }
+        });
+
+        function handleProjectFiles(files) {
+            projectFileList.innerHTML = '';
+            Array.from(files).forEach((file) => {
+                const item = document.createElement('div');
+                item.className = 'file-item p-2 flex items-center justify-between rounded bg-[rgba(255,255,255,0.02)] text-xs text-gray-300 mb-1 border border-[#1f293d]';
+                item.innerHTML = `
+                    <div><i class="fa-regular fa-file-lines mr-2 text-indigo-400"></i>${file.name} <span class="text-gray-500">(${Math.round(file.size / 1024)} KB)</span></div>
+                    <button class="text-red-400 hover:text-red-300 text-xs" onclick="this.parentElement.remove()">Remove</button>
+                `;
+                projectFileList.appendChild(item);
+            });
+        }
+
+        uploadModalSubmit.addEventListener('click', () => {
+            const name = document.getElementById('newProjectName').value.trim();
+            const client = document.getElementById('newProjectClient').value.trim();
+            if (!name || !client) {
+                alert('Project Name and Client Name fields cannot be left blank.');
+                return;
+            }
+            alert(`Project Blueprint successfully registered:\nProject: ${name}\nClient: ${client}\nStaged files: ${projectFilesInput.files.length}`);
+            closeUploadModal();
+        });
     </script>
 </body>
 </html>

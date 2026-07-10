@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consultants - WebCon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="projects.css">
+  <link rel="stylesheet" href="consultants.css">
+</head>
+<body>
+  <div class="app-shell" id="appShell">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <div class="brand-icon"><i class="fa-solid fa-building-columns"></i></div>
+          <div class="brand-copy">
+            <p class="brand-name">WEBCON</p>
+            <p class="brand-subtitle">Blueprint Version Control</p>
+          </div>
+        </div>
+        <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-item" href="projects.html"><i class="fa-solid fa-folder"></i><span>Projects</span></a>
+        <a class="nav-item" href="blueprints.html"><i class="fa-solid fa-map"></i><span>Blueprints</span></a>
+        <a class="nav-item" href="revisions.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Revisions</span></a>
+        <a class="nav-item active" href="consultants.html"><i class="fa-solid fa-users"></i><span>Consultants</span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-content">
+        <section class="panel">
+          <div class="summary-inner">
+            <div>
+              <h2 class="project-title">Welcome back, Engr. Zoey Pangan</h2>
+              <p class="project-meta">Role: Technical Consultant (Mechanical)</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="table-header">
+            <h3>Active Evaluation Workspace</h3>
+          </div>
+          <div style="padding:1rem;">
+            <div class="info-box">Selected Drawing: MECH-02-HVAC (Version: v2.0)</div>
+          </div>
+        </section>
+
+        <section class="panel history-panel">
+          <div class="table-header">
+            <h3>Submit Verification & Corrections</h3>
+          </div>
+          <div style="padding:1rem;">
+            <label class="label">Feedback Type:</label>
+            <select id="feedbackType" class="select">
+              <option>Design Conflict / Revision Required</option>
+              <option>Clarification / Question</option>
+              <option>Minor Comment</option>
+            </select>
+
+            <label class="label">Comments / Instructions:</label>
+            <textarea id="consultantNotes" class="notes" rows="5" placeholder="Add your comments and instructions here" required></textarea>
+
+            <div class="actions-row">
+              <button class="action-btn" id="dispatchBtn"><i class="fa-solid fa-rocket"></i> Dispatch Evaluation</button>
+            </div>
+
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.body.classList.toggle('sidebar-collapsed');
+      const toggleIcon = document.querySelector('.sidebar-toggle i');
+      if (document.body.classList.contains('sidebar-collapsed')) {
+        toggleIcon.classList.remove('fa-chevron-left');
+        toggleIcon.classList.add('fa-chevron-right');
+      } else {
+        toggleIcon.classList.remove('fa-chevron-right');
+        toggleIcon.classList.add('fa-chevron-left');
+      }
+    }
+
+    // simple dispatch handler - validates and appends to console for demo
+    document.getElementById('dispatchBtn').addEventListener('click', () => {
+      const type = document.getElementById('feedbackType').value;
+      const notesEl = document.getElementById('consultantNotes');
+      // use browser validation UI instead of alerting when empty
+      if (!notesEl.checkValidity()) { notesEl.reportValidity(); return; }
+      const notes = notesEl.value.trim();
+      // append a console log and show a confirmation
+      console.log('Dispatching evaluation:', { type, notes });
+      alert('Evaluation dispatched.');
+      notesEl.value = '';
+    });
+  </script>
+</body>
+</html>
